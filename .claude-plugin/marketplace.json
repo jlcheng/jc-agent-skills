@@ -1,0 +1,17 @@
+{
+  "name": "jc-agent-skills",
+  "owner": {
+    "name": "John Cheng",
+    "email": "johnlicheng@gmail.com"
+  },
+  "metadata": {
+    "description": "John's vetted agent skills, reviewed before inclusion"
+  },
+  "plugins": [
+    {
+      "name": "jc-code",
+      "source": "./plugins/jc-code",
+      "description": "Code-related skills vetted by John (drawio diagram generation)"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "jc-code",
+  "version": "1.0.0",
+  "description": "Code-related skills vetted by John. Skills: drawio (generate .drawio diagrams and export PNG/SVG/PDF via the draw.io desktop CLI).",
+  "author": {
+    "name": "John Cheng",
+    "email": "johnlicheng@gmail.com"
+  }
+}
