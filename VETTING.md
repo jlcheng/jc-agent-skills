@@ -15,8 +15,10 @@ against a known-good baseline.
   2026-07-12: behavioral patch to `SKILL.md` — image exports (PNG/SVG/PDF/JPG) made
   strictly opt-in ("Default stop" rule): the default deliverable is the `.drawio` file
   only, and workflow steps 4–7 (draft export, vision self-check, PNG review loop,
-  final export) run only when the user explicitly requests a rendered image (owner
-  preference — auto-generated images were never used). No script changes. Everything
+  final export) run only when the user explicitly requests a rendered image; the
+  vision self-check still runs by default against an ephemeral scratchpad render
+  deleted after the check (owner preference — auto-generated images were never
+  used). No script changes. Everything
   else is byte-identical to the audited commit; on upstream bumps, re-apply this
   patch after the diff audit.
 
