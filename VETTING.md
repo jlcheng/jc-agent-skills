@@ -12,7 +12,13 @@ against a known-good baseline.
 - **Copied subtree:** `skills/drawio-skill/` → `plugins/jc-code/skills/drawio/`
 - **Local modifications:** frontmatter `name: drawio-skill` → `name: drawio`
   (invocation naming only); upstream `LICENSE` (MIT) copied into the skill directory.
-  Everything else is byte-identical to the audited commit.
+  2026-07-12: behavioral patch to `SKILL.md` — image exports (PNG/SVG/PDF/JPG) made
+  strictly opt-in ("Default stop" rule): the default deliverable is the `.drawio` file
+  only, and workflow steps 4–7 (draft export, vision self-check, PNG review loop,
+  final export) run only when the user explicitly requests a rendered image (owner
+  preference — auto-generated images were never used). No script changes. Everything
+  else is byte-identical to the audited commit; on upstream bumps, re-apply this
+  patch after the diff audit.
 
 ### Verdict
 
