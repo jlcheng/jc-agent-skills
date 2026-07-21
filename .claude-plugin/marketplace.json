@@ -11,7 +11,7 @@
     {
       "name": "jc-code",
       "source": "./plugins/jc-code",
-      "description": "Code-related skills vetted by John (drawio diagram generation)"
+      "description": "Code-related skills vetted by John (drawio + mermaid diagram generation)"
     }
   ]
 }

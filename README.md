@@ -19,18 +19,23 @@ While developing locally:
 
 ## Plugins
 
-| Plugin    | Skill    | Invocation        | Upstream                                                                        |
-| --------- | -------- | ----------------- | ------------------------------------------------------------------------------- |
-| `jc-code` | `drawio` | `/jc-code:drawio` | [Agents365-ai/drawio-skill](https://github.com/Agents365-ai/drawio-skill) (MIT) |
+| Plugin    | Skill     | Invocation         | Origin                                                                          |
+| --------- | --------- | ------------------ | ------------------------------------------------------------------------------- |
+| `jc-code` | `drawio`  | `/jc-code:drawio`  | [Agents365-ai/drawio-skill](https://github.com/Agents365-ai/drawio-skill) (MIT) |
+| `jc-code` | `mermaid` | `/jc-code:mermaid` | First-party (authored in this repo)                                             |
 
 ## Layout
 
 ```
 .claude-plugin/marketplace.json      # marketplace: jc-agent-skills
 plugins/jc-code/
-├── .claude-plugin/plugin.json       # plugin: jc-code, version 1.0.0
-└── skills/drawio/                   # skill: drawio (vetted upstream copy)
+├── .claude-plugin/plugin.json       # plugin: jc-code, version 1.1.0
+├── skills/drawio/                   # skill: drawio (vetted upstream copy)
+└── skills/mermaid/                  # skill: mermaid (first-party)
 ```
+
+Most skills here are vetted copies of other people's work (see
+[VETTING.md](VETTING.md)); `mermaid` is the first one authored in this repo.
 
 ## Updating a vetted skill
 

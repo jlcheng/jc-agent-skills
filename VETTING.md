@@ -2,7 +2,41 @@
 
 Every skill in this repo was security-reviewed before inclusion. This file records
 what was audited, when, and from where, so future upstream updates can be diffed
-against a known-good baseline.
+against a known-good baseline. First-party skills authored in this repo are
+recorded here too, documenting their execution and network behavior.
+
+## jc-code:mermaid
+
+- **Origin:** First-party — authored in this repo, not copied from upstream.
+- **Added:** 2026-07-20.
+- **What it does:** Guides authoring/repair of Mermaid diagrams and validates
+  them by rendering with [mermaid-cli](https://github.com/mermaid-js/mermaid-cli)
+  (`mmdc`). Ships one script, `scripts/validate_mermaid.py`.
+
+### Behavior worth remembering
+
+- **Network egress + third-party execution on validation:** if `mmdc` is not
+  already on `PATH`, the script invokes `npx -y @mermaid-js/mermaid-cli`, which
+  downloads mermaid-cli (and its dependency tree, including a Chromium via
+  Puppeteer) from npm on first use, then runs it. Rendering launches headless
+  Chrome. This is the upstream tool the skill is built around, run only when the
+  user validates a diagram — but it is real network + code execution, so keep it
+  behind permission prompts in locked-down environments. Pre-installing
+  `@mermaid-js/mermaid-cli` avoids the on-demand npm fetch.
+- **Chrome flags:** the script writes a Puppeteer config enabling `--no-sandbox`
+  / `--disable-setuid-sandbox` (needed when Chrome runs as root or in CI). This
+  lowers the browser sandbox for the render subprocess only; the diagrams being
+  rendered are local text the user authored.
+- **Script hygiene:** stdlib only (`argparse`, `subprocess`, `tempfile`, `re`,
+  `json`); no `eval`/`exec`/`pickle`; renders into a temp dir and discards the
+  image; writes nothing outside temp. Diagram content is passed to mmdc via a
+  temp file, never interpolated into a shell string.
+
+### Verdict
+
+Safe. Diagram-authoring aid whose only external action is running the official
+mermaid-cli to validate the user's own diagrams. The one thing to be aware of is
+the on-demand npm download + headless-Chrome launch on first validation.
 
 ## jc-code:drawio
 
