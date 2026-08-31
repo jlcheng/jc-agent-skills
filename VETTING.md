@@ -38,6 +38,32 @@ Safe. Diagram-authoring aid whose only external action is running the official
 mermaid-cli to validate the user's own diagrams. The one thing to be aware of is
 the on-demand npm download + headless-Chrome launch on first validation.
 
+## jc-code:guided-review
+
+- **Origin:** First-party — authored in this repo, not copied from upstream.
+- **Added:** 2026-08-29.
+- **What it does:** Orchestrates an interactive, seven-phase code review on top of the
+  built-in `code-review` skill. Ships no scripts. Prose only.
+
+### Behavior worth remembering
+
+- **No scripts, no network:** the skill is instructions only. Its network and
+  execution footprint is whatever the built-in `code-review` skill and the agent's
+  own tools do.
+- **It edits the working tree.** Phases 3 and 5 apply fixes and Phase 6 removes
+  source-code comments. Every edit is announced, and Phase 6 shows removals before
+  applying them, but this is a skill that changes your code.
+- **It never touches GitHub.** The skill forbids passing `--fix` to the built-in
+  skill, and Phase 6 is explicitly scoped to source-code comments so it cannot be
+  misread as deleting pull-request review comments.
+- **It writes to `.guided-review/` in the repo** and asks for that path to be added
+  to `.gitignore` in Phase 1, so an unfinished review does not land in a commit.
+
+### Verdict
+
+Safe. Prose-only orchestration skill. The thing to be aware of is that it modifies
+source files by design, so run it where you can read the diff.
+
 ## jc-code:drawio
 
 - **Upstream:** https://github.com/Agents365-ai/drawio-skill
