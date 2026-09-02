@@ -23,20 +23,22 @@ While developing locally:
 | `jc-code` | `drawio` | `/jc-code:drawio` | [Agents365-ai/drawio-skill](https://github.com/Agents365-ai/drawio-skill) (MIT) |
 | `jc-code` | `mermaid` | `/jc-code:mermaid` | First-party (authored in this repo) |
 | `jc-code` | `guided-review` | `/jc-code:guided-review` | First-party (authored in this repo) |
+| `jc-code` | `claude-setup` | `/jc-code:claude-setup` | First-party (authored in this repo) |
 
 ## Layout
 
 ```
 .claude-plugin/marketplace.json      # marketplace: jc-agent-skills
 plugins/jc-code/
-├── .claude-plugin/plugin.json       # plugin: jc-code, version 1.2.0
+├── .claude-plugin/plugin.json       # plugin: jc-code, version 1.3.0
 ├── skills/drawio/                   # skill: drawio (vetted upstream copy)
 ├── skills/mermaid/                  # skill: mermaid (first-party)
-└── skills/guided-review/            # skill: guided-review (first-party)
+├── skills/guided-review/            # skill: guided-review (first-party)
+└── skills/claude-setup/             # skill: claude-setup (first-party)
 ```
 
-Some skills here are vetted copies of other people's work (see [VETTING.md](VETTING.md)); `mermaid`
-and `guided-review` were authored in this repo.
+Some skills here are vetted copies of other people's work (see [VETTING.md](VETTING.md)); `mermaid`,
+`guided-review`, and `claude-setup` were authored in this repo.
 
 ## Updating a vetted skill
 
@@ -50,6 +52,13 @@ and `guided-review` were authored in this repo.
 Versions are `jc-code` plugin versions, from `plugins/jc-code/.claude-plugin/plugin.json`. Newest
 first. One bullet per user-visible change: what changed, and why it matters to someone using the
 skill. Skip anything invisible from outside the repo.
+
+### 1.3.0 — 2026-09-02
+
+- Added `claude-setup`: installs the owner's preferred Claude Code machine setup. Today that is the
+  status line, a script showing the session name, the model, the repo and branch, and how much of
+  the context window is used. Run `/jc-code:claude-setup` on a new machine instead of rebuilding the
+  status line from scratch.
 
 ### 1.2.0 — 2026-08-29
 

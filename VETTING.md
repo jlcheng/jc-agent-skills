@@ -5,6 +5,51 @@ what was audited, when, and from where, so future upstream updates can be diffed
 against a known-good baseline. First-party skills authored in this repo are
 recorded here too, documenting their execution and network behavior.
 
+## jc-code:claude-setup
+
+- **Origin:** First-party — authored in this repo, not copied from upstream.
+- **Added:** 2026-09-02.
+- **What it does:** Installs the owner's preferred Claude Code machine setup. Ships
+  two files: `assets/statusline-command.sh` (the status line itself) and
+  `scripts/install-statusline.sh` (the installer).
+
+### Behavior worth remembering
+
+- **It writes to the user's Claude Code config directory, not the project.** The
+  installer copies the status line script into `$CLAUDE_CONFIG_DIR` (default
+  `~/.claude`) and sets the `statusLine` key in `settings.json`. Both files are
+  copied to a `.bak-<timestamp>` sibling before being written. It touches nothing
+  else in `settings.json`, and refuses to proceed if that file will not parse as
+  JSON. Honors `CLAUDE_CONFIG_DIR`, which is what makes it testable against a
+  throwaway directory.
+- **It will not silently replace someone else's status line.** If `settings.json`
+  already points at a different script, the installer prints that command and
+  exits 3. Replacing it requires an explicit `--force`, and SKILL.md tells the
+  agent to ask the user first.
+- **User-invoked only.** `disable-model-invocation: true` in the frontmatter, so
+  the model cannot decide on its own to run something that rewrites config.
+  `allowed-tools` is limited to Bash and Read.
+- **No network.** Neither script fetches anything. The installed status line runs
+  on every refresh, and the only thing it shells out to is `git` in the current
+  directory, always with `--no-optional-locks`: `rev-parse --show-toplevel`, then
+  `branch --show-current`, and `rev-parse --short HEAD` only when HEAD is
+  detached. Roughly 50 milliseconds per render, measured.
+- **Payload values are never evaluated.** The session name, model name, and repo
+  name come from Claude Code's JSON payload and are only ever concatenated into
+  the output string, never used as a command or a path.
+- **Dependency:** `jq`, used by both the status line and the installer's
+  `settings.json` edit. The installer checks for it up front and exits 2 with an
+  explanation rather than leaving a broken status bar behind.
+- **Script hygiene:** `set -euo pipefail`; no `eval`; no `curl`/`wget`; JSON is
+  edited through `jq` with the new value passed as `--arg`, never string
+  interpolation, and written to a temp file that is moved into place.
+
+### Verdict
+
+Safe. Personal-configuration installer with a small, auditable footprint. The
+thing to be aware of is that it is the one skill here that writes outside the
+project, into `~/.claude`, by design.
+
 ## jc-code:mermaid
 
 - **Origin:** First-party — authored in this repo, not copied from upstream.
