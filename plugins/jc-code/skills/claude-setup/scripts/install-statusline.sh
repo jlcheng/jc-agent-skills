@@ -129,7 +129,9 @@ if [ "$DRY_RUN" != 1 ] && [ -f "$DEST" ]; then
       '{session_name: "preview",
         model: {display_name: "Opus 5"},
         workspace: {current_dir: $cwd},
-        context_window: {used_percentage: 42}}' |
+        context_window: {used_percentage: 42,
+                         total_input_tokens: 84120,
+                         context_window_size: 200000}}' |
       bash "$DEST" || true
   )"
   printf 'preview: %s\n' "$preview"

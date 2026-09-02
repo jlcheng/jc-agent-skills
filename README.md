@@ -30,7 +30,7 @@ While developing locally:
 ```
 .claude-plugin/marketplace.json      # marketplace: jc-agent-skills
 plugins/jc-code/
-├── .claude-plugin/plugin.json       # plugin: jc-code, version 1.3.0
+├── .claude-plugin/plugin.json       # plugin: jc-code, version 1.3.1
 ├── skills/drawio/                   # skill: drawio (vetted upstream copy)
 ├── skills/mermaid/                  # skill: mermaid (first-party)
 ├── skills/guided-review/            # skill: guided-review (first-party)
@@ -52,6 +52,12 @@ Some skills here are vetted copies of other people's work (see [VETTING.md](VETT
 Versions are `jc-code` plugin versions, from `plugins/jc-code/.claude-plugin/plugin.json`. Newest
 first. One bullet per user-visible change: what changed, and why it matters to someone using the
 skill. Skip anything invisible from outside the repo.
+
+### 1.3.1 — 2026-09-02
+
+- The `claude-setup` status line now shows raw token counts next to the context percentage, for
+  example `12% (118k/1M)`. The counts are the same numbers the percentage is computed from, so
+  they cannot disagree with it.
 
 ### 1.3.0 — 2026-09-02
 

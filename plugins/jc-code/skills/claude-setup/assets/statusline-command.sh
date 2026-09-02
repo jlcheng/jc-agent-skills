@@ -31,13 +31,15 @@ RESET=$'\033[0m'
 # the ASCII unit separator rather than a tab: read collapses runs of whitespace,
 # which would silently shift every field after an empty one.
 
-IFS=$'\037' read -r cwd session model repo pct <<EOF
+IFS=$'\037' read -r cwd session model repo pct used max <<EOF
 $(printf '%s' "$input" | jq -r '[
   (.workspace.current_dir // .cwd // ""),
   (.session_name // ((.session_id // "")[0:8])),
   (.model.display_name // ""),
   (.workspace.repo.name // ""),
-  (.context_window.used_percentage | if . == null then "" else (round | tostring) end)
+  (.context_window.used_percentage | if . == null then "" else (round | tostring) end),
+  (.context_window.total_input_tokens // 0 | tostring),
+  (.context_window.context_window_size // 0 | tostring)
 ] | join("\u001f")' 2>/dev/null)
 EOF
 
@@ -92,9 +94,26 @@ else
 fi
 
 # Item: context usage
-# Shows how much of the context window is used, for example "42%". Absent until
-# the first API response of the session.
-# Color: green below 60, yellow from 60, red from 85.
+# Shows how much of the context window is used, for example "42% (118k/1M)".
+# The two counts are the same numbers the percentage is computed from, so they
+# cannot disagree with it. Absent until the first API response of the session,
+# and the counts alone drop out if the payload omits them.
+# Color: the percentage is green below 60, yellow from 60, red from 85. The
+# counts are dim. This item colors its own halves, so no outer color.
+
+# short <tokens>: 940 -> "940", 118543 -> "118k", 1000000 -> "1M", 1200000 -> "1.2M"
+short() {
+  if [ "$1" -ge 1000000 ]; then
+    whole=$(($1 / 1000000))
+    tenths=$((($1 % 1000000) / 100000))
+    if [ "$tenths" -eq 0 ]; then printf '%sM' "$whole"; else printf '%s.%sM' "$whole" "$tenths"; fi
+  elif [ "$1" -ge 1000 ]; then
+    printf '%sk' "$(($1 / 1000))"
+  else
+    printf '%s' "$1"
+  fi
+}
+
 if [[ "$pct" =~ ^[0-9]+$ ]]; then
   if [ "$pct" -ge 85 ]; then
     pct_color=$RED
@@ -103,7 +122,11 @@ if [[ "$pct" =~ ^[0-9]+$ ]]; then
   else
     pct_color=$GREEN
   fi
-  add "$pct_color" "${pct}%"
+  context="${pct_color}${pct}%${RESET}"
+  if [[ "$used" =~ ^[0-9]+$ ]] && [[ "$max" =~ ^[0-9]+$ ]] && [ "$max" -gt 0 ]; then
+    context="${context} ${DIM}($(short "$used")/$(short "$max"))${RESET}"
+  fi
+  add "" "$context"
 fi
 
 # --- render -------------------------------------------------------------------

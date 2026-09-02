@@ -32,7 +32,7 @@ git calls.
 Result looks like:
 
 ```
-statusline work | Opus 5 (1M context) | jc-agent-skills@main | 42%
+statusline-command | Opus 5 (1M context) | jc-agent-skills@main | 12% (118k/1M)
 ```
 
 Four items, in this order. Each one is a block in the script with a comment
@@ -44,7 +44,7 @@ out and the separators close up.
 | session     | the name from `/rename`, else the first 8 of the session id                                                                 | bold                                        |
 | model       | the model display name                                                                                                      | dim                                         |
 | repo@branch | repo name from the origin remote, else the top-level directory name; short commit instead of a branch when HEAD is detached | repo default, branch cyan                   |
-| context     | percent of the context window used                                                                                          | green below 60, yellow from 60, red from 85 |
+| context     | percent of the context window used, then tokens used and the window size                                                    | percentage green below 60, yellow from 60, red from 85; counts dim |
 
 Outside a git repository the repo item disappears. Before the first API response
 of a session the context item disappears.
