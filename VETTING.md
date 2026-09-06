@@ -87,27 +87,30 @@ the on-demand npm download + headless-Chrome launch on first validation.
 
 - **Origin:** First-party — authored in this repo, not copied from upstream.
 - **Added:** 2026-08-29.
-- **What it does:** Orchestrates an interactive, seven-phase code review on top of the
-  built-in `code-review` skill. Ships no scripts. Prose only.
+- **Updated:** 2026-09-06, replacing the seven-phase workflow with the overview version
+  refined through John's prototype testing.
+- **What it does:** Guides human judgments of an existing Review JSON, with opening and
+  closing tables and detailed Finding cards. Ships instructions and fictional sample Reviews.
 
 ### Behavior worth remembering
 
-- **No scripts, no network:** the skill is instructions only. Its network and
-  execution footprint is whatever the built-in `code-review` skill and the agent's
-  own tools do.
-- **It edits the working tree.** Phases 3 and 5 apply fixes and Phase 6 removes
-  source-code comments. Every edit is announced, and Phase 6 shows removals before
-  applying them, but this is a skill that changes your code.
-- **It never touches GitHub.** The skill forbids passing `--fix` to the built-in
-  skill, and Phase 6 is explicitly scoped to source-code comments so it cannot be
-  misread as deleting pull-request review comments.
-- **It writes to `.guided-review/` in the repo** and asks for that path to be added
-  to `.gitignore` in Phase 1, so an unfinished review does not land in a commit.
+- **No bundled scripts or network calls.** It uses the agent's tools to read and
+  persist JSON, and may inspect available code when asked to investigate.
+- **Storage outside the project:** one file per Review under
+  `~/.jc-guided-review/<repo-name>/`, unless the user supplies another output path.
+  Active and completed Reviews use the same file. Fixture inputs are preserved.
+- **Human judgments govern the Review.** Machine Comments are append-only and
+  cannot set or override human Adjudications. Completed Reviews are read-only.
+- **Reviewing does not authorize fixes or external publication.** The skill has
+  no fix phases, source-comment trimming, GitHub posting, or `.gitignore` edits.
+- **Input boundary:** it requires an existing Review JSON. The old `findings.md`
+  and machine Verdicts are not silently converted into human judgments.
 
 ### Verdict
 
-Safe. Prose-only orchestration skill. The thing to be aware of is that it modifies
-source files by design, so run it where you can read the diff.
+Prose-only review guidance with local JSON persistence. The material write is to
+the user's review storage directory. Human interaction was exercised through
+prototype sessions; file checks do not establish correctness of AI assessments.
 
 ## jc-code:drawio
 

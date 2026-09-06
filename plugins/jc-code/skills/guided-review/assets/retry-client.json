@@ -1,0 +1,37 @@
+{
+  "id": "review-fictional-retry",
+  "state": "active",
+  "target": "FICTIONAL AI-GENERATED TEST INPUT. Review the imagined retry client change in client/retry.py:84-103. These paths do not exist. Scenario facts: send() retries 429 responses in a while loop with capped exponential backoff, no attempt limit, and no total deadline. Each HTTP request has a 30-second timeout. Successful requests exit the loop. The worker is long-lived and has no outer job deadline. Log messages print the retry attempt but not the request ID; each log event already has a structured request_id field. The developer comment says the backoff caps at 30 seconds, while the configured cap is 60. Use these supplied facts for discussion, not as evidence of real code inspection.",
+  "findings": [
+    {
+      "id": "F1",
+      "claim": "The retry loop can continue indefinitely when the API keeps returning 429 responses.",
+      "location": "client/retry.py:84-103",
+      "comments": [
+        {"id": "C1", "author": "fictional-reviewer", "is_valid": true, "attention_level": "high", "remediation_risk": "medium", "rationale": "The scenario describes no bound on the number of attempts. Adding a total deadline would introduce a failure callers must handle."},
+        {"id": "C2", "author": "fictional-challenger", "is_valid": false, "rationale": "The 30-second HTTP timeout bounds the loop, so it cannot run indefinitely."},
+        {"id": "C3", "author": "fictional-reviewer", "is_valid": true, "attention_level": "high", "remediation_risk": "medium", "rationale": "A timeout bounds one request, not repeated successful HTTP exchanges returning 429. The supplied Target also rules out an outer job deadline."}
+      ],
+      "adjudication": null
+    },
+    {
+      "id": "F2",
+      "claim": "Retry logs cannot be correlated with their originating requests.",
+      "location": "client/retry.py:96",
+      "comments": [
+        {"id": "C1", "author": "fictional-reviewer", "is_valid": true, "attention_level": "medium", "remediation_risk": "low", "rationale": "The message text omits a request ID. Adding it to the message would be contained."},
+        {"id": "C2", "author": "fictional-challenger", "is_valid": false, "rationale": "The Target says every event already includes structured request_id. Missing it in the text does not establish that correlation is impossible."}
+      ],
+      "adjudication": null
+    },
+    {
+      "id": "F3",
+      "claim": "The backoff comment gives a 30-second cap although the configured cap is 60 seconds.",
+      "location": "client/retry.py:88",
+      "comments": [
+        {"id": "C1", "author": "fictional-reviewer", "is_valid": true, "attention_level": "dismissed", "remediation_risk": "low", "rationale": "The mismatch is real in the scenario. Updating the comment is contained, but I recommend no action during this review because the constant is clearly named. This is machine advice, not a human decision."}
+      ],
+      "adjudication": null
+    }
+  ]
+}

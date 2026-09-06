@@ -1,0 +1,34 @@
+{
+  "id": "review-fictional-resumed",
+  "state": "active",
+  "target": "FICTIONAL AI-GENERATED TEST INPUT, including invented prior human Adjudications. Resume an imagined CSV export review at reports/export.py:10-90. These paths do not exist. Scenario facts: export materializes every row in memory; the endpoint enforces a 500-row maximum before reading rows. The header says Created while documentation says Created at; the importer addresses columns by position. Empty results return HTTP 200 with a zero-byte file, but the published contract promises a header row even with zero results. The earlier human judgments below are scenario state, not decisions by the person testing this skill.",
+  "findings": [
+    {
+      "id": "F1",
+      "claim": "Export memory use grows without bound with the size of the database.",
+      "location": "reports/export.py:30-45",
+      "comments": [
+        {"id": "C1", "author": "fictional-reviewer", "is_valid": true, "attention_level": "high", "remediation_risk": "medium", "rationale": "Materializing all rows would exhaust memory if the dataset is unbounded. Streaming would change response handling. This Comment overlooked the endpoint limit described in the Target."}
+      ],
+      "adjudication": {"is_valid": false}
+    },
+    {
+      "id": "F2",
+      "claim": "The exported Created header differs from the documented Created at header.",
+      "location": "reports/export.py:51",
+      "comments": [
+        {"id": "C1", "author": "fictional-reviewer", "is_valid": true, "attention_level": "low", "remediation_risk": "low", "rationale": "The scenario confirms the mismatch. Correcting the documentation is contained; the importer does not use header names."}
+      ],
+      "adjudication": {"is_valid": true, "attention_level": "dismissed"}
+    },
+    {
+      "id": "F3",
+      "claim": "An empty export omits the header row promised by the published contract.",
+      "location": "reports/export.py:72-76",
+      "comments": [
+        {"id": "C1", "author": "fictional-reviewer", "is_valid": true, "attention_level": "medium", "remediation_risk": "low", "rationale": "The scenario says the early return produces a zero-byte file. Writing the existing header before that return is a contained candidate remediation; its behavior should be tested."}
+      ],
+      "adjudication": null
+    }
+  ]
+}

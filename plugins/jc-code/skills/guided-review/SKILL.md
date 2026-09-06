@@ -1,200 +1,80 @@
 ---
 name: guided-review
-version: 0.1.0
-description: Interactive, multi-phase code review. Wraps the built-in code-review skill, then checks each Finding with an adversarial verifier to strip false alarms, fixes what is safe to fix, explains the rest, trims stale code comments, and writes a report. Use when the user wants to work through review findings step by step and decide on each one, rather than get a one-shot list. Trigger on explicit invocation, or when the user asks to "walk through" a review, triage review findings, or check whether review findings are real.
-requires: The built-in `code-review` skill. If it is not available, stop and tell the user.
+description: Guide a human through a stored Review JSON file with a findings table at the start and end and detailed cards for selected Findings. Use when the user wants to walk through, triage, or adjudicate an existing Review JSON file.
 ---
 
 # Guided Review
 
-The built-in `code-review` skill hands you a list and walks away. This skill turns that list
-into a session: every Finding gets attacked by a fresh adversarial verifier, the survivors get
-sorted into what the agent can just fix and what needs your judgement, and what is left becomes
-a report you can turn into tickets.
+Read [the Review contract](references/contract.md) in full, then load the supplied Review.
+Use an overview for choosing where to spend attention and a
+detailed card for judging each selected Finding.
 
-## Vocabulary
+For a practice session, see [the testing guide](references/testing.md) for bundled
+fictional Reviews and prompts that work in a fresh session. Read it only when testing.
 
-These words mean exactly one thing each. Use them in the code, in the state file, and when
-talking to the user. Do not substitute synonyms.
+Start with a short Target summary and a compact table: ID, exact Claim, human
+Adjudication or Pending, machine Attention Level advice, and Remediation Risk.
+Keep stored order so the list is stable on resume. Show differing advice as
+disputed, with the competing values; absent advice is unknown. Machine advice
+must be labeled as such, including machine dismissal. Do not remove Findings
+because a machine called them invalid.
 
-**Changeset** - the set of changes under review. Established once in Phase 1 and recorded in the
-state file. Never re-derive it later: by Phase 6 the working tree no longer matches the diff that
-was reviewed, because this workflow has been editing it.
+Suggest one place to start using consequence, disputed validity, or risky
+remediation, and give a short reason. Let the human choose any Finding or ask to
+filter the view. Filtering changes only presentation, never the stored Review.
 
-**Finding** - one problem reported by the built-in `code-review` skill. This is that skill's own
-word, kept deliberately so nothing has to be translated. It is not a GitHub Issue.
+Ask which Finding they want to inspect. Open one selected Finding as a detailed
+card. If they select several, work through that selection one at a time, in the
+order requested (stored order if unspecified). Keep the same level of detail for
+each card; selecting several does not turn them into compressed summaries. If
+the human explicitly requests a comparison, provide it before returning to decisions.
 
-**Adversarial Verifier** - a sub-agent that tries to disprove a single Finding. One per Finding.
-See Phase 2 for the mechanism.
+For each card, show:
 
-**Verdict** - the answer to "is this Finding true?". One of:
+- Finding ID, exact Claim, and Location. Show selection progress when useful,
+  such as "F2, second of three selected Findings".
+- A short paragraph explaining the concrete consequence and evidence. Separate
+  supplied scenario facts or inspected code from assumptions and missing context.
+- Machine assessments as separate, attributed bullets: validity, Attention Level
+  when valid, and the reasoning behind each position. Include replies that address
+  a disputed premise, so the human can follow how the disagreement developed.
+  Do not replace this explanation with vote counts or just "Comments conflict".
+  When a Comment responds to another agent's reasoning, lead with that relationship
+  and whether it disagrees, agrees, or partly agrees. For example: "Response to
+  challenger, fictional-reviewer: disagrees with the challenger's reasoning. A
+  timeout bounds one request, not repeated retry cycles. Assessment remains valid,
+  high attention." Use "Response to reviewer" or another accurate role when
+  appropriate. Do not label every contribution merely "Machine assessment";
+  make a response to the challenge visible immediately. Describe disagreement
+  without implying that the later Comment automatically settles it. Infer a reply
+  relationship only when the Comment's content supports it.
+- Remediation Risk and the assumed fix, alongside the relevant machine assessment
+  when convenient. Show unknown when no estimate exists.
+- The existing human Adjudication when revisiting a Finding.
 
-| Verdict      | Meaning                                     |
-| ------------ | ------------------------------------------- |
-| `Unverified` | Not yet checked. Every Finding starts here. |
-| `Upheld`     | Survived the attack. Treat as real.         |
-| `Refuted`    | Disproved. A false alarm.                   |
+Use an explanatory paragraph followed by
+short machine-assessment bullets. Summarize repetitive Comments, but preserve
+distinct arguments and changed opinions. Offer full Rationale on request.
 
-**Adjudicator** - whoever set the current Verdict: `verifier` or `human`. The Adversarial Verifier
-sets it by default. A human may override a Verdict at any point, which rewrites both the Verdict
-and the Adjudicator. Overrides are expected, not exceptional: a verifier cannot know that a code
-path is dead for reasons that live outside the repo.
+Ask: "How do you judge F1: invalid, or valid with high, medium, low, or dismissed
+attention? You can also ask about it or skip it." Use the actual ID and vary the
+wording naturally. Allow explicit decisions directly from the overview without
+forcing a detail screen.
 
-**Disposition** - what was decided about an Upheld Finding. One starting state, three endings:
+If the human supplies multiple explicit ID-to-decision pairs, record those pairs.
+If "dismiss all" or a similar instruction leaves validity or scope unclear, ask
+one clarifying question before saving. Never fill in unspecified decisions.
 
-```
-                          ┌─→ Fixed      (changed in this run)
-Open  ── user decides ────┼─→ Dismissed  (real, but not worth fixing)
-                          └─→ Deferred   (real, fix later, carry into the report)
-```
+After saving each decision (or an explicitly supplied batch of decisions), briefly
+confirm the decision and report the remaining Pending count. Show the full table
+only at the start and end of the session, or when the human explicitly requests it.
 
-`Deferred` is terminal for this run. The report is the handoff to a ticket system. Re-running this
-skill on the same code starts a Deferred Finding over at `Open`.
+Then open the next Finding in the human's selection, or ask where to go next if
+the selection is exhausted. A skip leaves the Finding Pending and advances within
+the selection; do not automatically cycle back to skipped Findings.
 
-A `Refuted` Finding leaves the workflow immediately after Phase 2. It gets no Disposition and
-appears in the report only under removed false alarms.
-
-**Mechanical Fix** - a fix meeting all three tests:
-
-1. The change is fully determined by the Finding. There is no design choice to make.
-2. It touches only the code the Finding points at.
-3. It needs no new test and no change to an existing test.
-
-**Judgement Fix** - anything that fails any one of those tests. **When unsure, call it a Judgement
-Fix.** Err on the side of caution.
-
-**Code Comment** - a comment in source code. This is *not* a review comment on a pull request.
-Phase 6 removes Code Comments only and never touches GitHub.
-
-## Workflow rules
-
-These apply to every phase.
-
-- **Each phase asks before it runs.** Declining skips that phase and moves to the next one. The
-  workflow stops only when the user says stop.
-- **Use whatever interactive UI is available** for asking and for selecting Findings. Do not make
-  the user type "A/B/C" if the harness offers something better.
-- **Never pass `--fix` to the built-in `code-review` skill.** It applies every Finding at once,
-  which skips the Adversarial Verifier entirely and ignores the Mechanical / Judgement split. That
-  one flag collapses this whole workflow. Phases 3 and 5 do their own editing.
-- **The state file is the source of truth**, not the conversation. Read it at the start of each
-  phase and update it at the end. It has to survive a long session and a context compaction.
-- Re-invoking this skill when `.guided-review/findings.md` already exists resumes from the recorded
-  state instead of reviewing from scratch. Ask the user which they want.
-
-## State
-
-Everything lives in `.guided-review/` at the repo root:
-
-- `findings.md` - the Changeset and one row per Finding.
-- `fixed.md` - Phase 7 report: what was changed.
-- `remaining.md` - Phase 7 report: what is left.
-
-Add `.guided-review/` to `.gitignore` in Phase 1 if it is not already there, so a half-finished
-review never lands in a commit.
-
-`findings.md` records the Changeset at the top, then a table:
-
-| ID  | Location         | Claim                                  | Verdict | Adjudicator | Disposition | Class      | Files touched |
-| --- | ---------------- | -------------------------------------- | ------- | ----------- | ----------- | ---------- | ------------- |
-| F1  | `src/auth.py:42` | Token expiry is compared in local time | Upheld  | verifier    | Fixed       | Mechanical | `src/auth.py` |
-
-`Class` is `Mechanical` or `Judgement`, set in Phase 3. `Files touched` is filled in by Phases 3
-and 5 and is what Phase 6 uses to find comments this workflow added itself.
-
-## Announce the workflow
-
-Before Phase 1, print this to the user verbatim:
-
-```text
-Guided review. Seven phases, and I will ask before each one. Declining skips just that
-phase; say stop to end the whole thing.
-
-1. Review        - run the built-in code-review skill and collect Findings.
-2. Verify        - attack each Finding with a fresh adversarial verifier and drop the
-                   false alarms.
-3. Mechanical    - fix the Findings where there is no judgement call to make.
-4. Explain       - talk through the Findings that are left. Pick the ones you want.
-5. Judgement     - fix the ones you choose.
-6. Trim comments - remove stale or needless comments in the source, including any I added.
-7. Report        - write up what was fixed and what remains.
-```
-
-## Phase 1 - Review
-
-Forward the user's target and effort arguments to the built-in `code-review` skill unchanged. It
-accepts a target (current diff, PR number, branch, path) and an effort level. Never add `--fix`.
-
-Create `.guided-review/`, add it to `.gitignore`, and write `findings.md`: the Changeset at the
-top, then one row per Finding with `Verdict = Unverified`, `Adjudicator` blank, `Disposition = Open`.
-
-## Phase 2 - Verify
-
-For each Finding, spawn a **fresh sub-agent with no shared context**. This is not optional. A
-verifier that inherits the reviewer's context will confirm everything it is shown, which makes the
-phase worthless.
-
-Give each verifier exactly one Finding and the code it points at. Instruct it to *disprove* the
-Finding: it should assume the Finding is wrong and let the code talk it out of that, not the other
-way round.
-
-A Finding is usually wrong because it rests on a false premise. Tell the verifier to name the
-premise the Finding depends on and try to break that, rather than arguing with the conclusion.
-(Cut this paragraph if it stops helping. The fresh-context requirement above is not cuttable.)
-
-Run the verifiers in parallel. Each returns a Verdict and one sentence of reasoning.
-
-Write each Verdict to `findings.md` with `Adjudicator = verifier`. Show the user the Refuted
-Findings and what the verifier said, so they can override any of them. Refuted Findings take no
-further part in the workflow.
-
-## Phase 3 - Mechanical Fixes
-
-Applies to Upheld Findings with `Disposition = Open`.
-
-Classify each one as `Mechanical` or `Judgement` using the three tests in the vocabulary, and record
-the class. When unsure, `Judgement`.
-
-Fix the Mechanical ones in a single pass, then report what changed. Record `Disposition = Fixed`
-and the files touched for each.
-
-## Phase 4 - Explain
-
-Read-only. This phase changes nothing in `findings.md`.
-
-List the Upheld Findings still `Open` (that is, the Judgement ones) and let the user pick which to
-have explained. Explain what the Finding means, why it matters here, and what fixing it would
-involve.
-
-## Phase 5 - Judgement Fixes
-
-Let the user pick from the Upheld Findings still `Open`, and choose per Finding: fix it, dismiss
-it, or defer it.
-
-Fix the chosen ones, then report what changed. Record the Disposition and the files touched. Any
-Finding the user does not act on stays `Open`.
-
-## Phase 6 - Trim Code Comments
-
-Source-code comments only. This phase never touches a pull request or anything on GitHub.
-
-Scope: comments inside the Changeset, plus comments this workflow added in Phases 3 and 5 (use the
-`Files touched` column). Remove comments that restate what the code already says, that describe
-work rather than behaviour ("added this to fix F3"), or that are now stale. Keep comments that
-explain *why*.
-
-Show the user the removals before applying them.
-
-## Phase 7 - Report
-
-Write two files and print a short summary in the conversation, so the user does not have to open
-anything to learn what happened.
-
-`fixed.md` - every Finding with `Disposition = Fixed`: what it was, what changed, which files.
-
-`remaining.md` - the handoff. `Deferred` Findings first, written so each can become a ticket
-without further digging. Then `Dismissed`, with the reason. Then anything still `Open`.
-
-Both files end with a tally: how many Findings the built-in skill reported, how many the verifier
-Refuted, and how many Verdicts a human overrode. Read over a few runs, those three numbers say
-whether the reviewer is noisy or the verifier is too soft.
+On stop or completion, show the final overview table with the Review contract's
+summary and working path. Include adjudicated rows and use the opening table's
+columns and order so the human can see the results. Honor an explicitly requested
+filter, and state when rows are hidden. The table is a navigation aid, not the
+source of truth.

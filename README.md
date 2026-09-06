@@ -30,7 +30,7 @@ While developing locally:
 ```
 .claude-plugin/marketplace.json      # marketplace: jc-agent-skills
 plugins/jc-code/
-├── .claude-plugin/plugin.json       # plugin: jc-code, version 1.3.1
+├── .claude-plugin/plugin.json       # plugin: jc-code, version 1.4.0
 ├── skills/drawio/                   # skill: drawio (vetted upstream copy)
 ├── skills/mermaid/                  # skill: mermaid (first-party)
 ├── skills/guided-review/            # skill: guided-review (first-party)
@@ -39,6 +39,18 @@ plugins/jc-code/
 
 Some skills here are vetted copies of other people's work (see [VETTING.md](VETTING.md)); `mermaid`,
 `guided-review`, and `claude-setup` were authored in this repo.
+
+## Guided review
+
+`/jc-code:guided-review` walks through an existing Review JSON file. It shows a findings table
+at the start and end, and detailed cards as you choose Findings to judge. Machine disagreement
+and replies are explicit; your judgment has the final say. This version does not generate the
+initial Review from a diff, apply code fixes, or import the old `findings.md` state format.
+
+Each Review is stored in `~/.jc-guided-review/<repo-name>/<date>-<description>-<unique-suffix>.json`.
+Decisions and completion update that same file. Explicit output paths override the default.
+See the [testing guide](plugins/jc-code/skills/guided-review/references/testing.md) for fictional
+inputs and prompts you can use in a fresh session.
 
 ## Updating a vetted skill
 
@@ -52,6 +64,14 @@ Some skills here are vetted copies of other people's work (see [VETTING.md](VETT
 Versions are `jc-code` plugin versions, from `plugins/jc-code/.claude-plugin/plugin.json`. Newest
 first. One bullet per user-visible change: what changed, and why it matters to someone using the
 skill. Skip anything invisible from outside the repo.
+
+### 1.4.0 — 2026-09-06
+
+- Replaced the seven-phase `guided-review` workflow with a guided examination of an existing
+  Review JSON: opening and closing tables, detailed Finding cards, explicit machine disagreement,
+  and saved human judgments. Reviews persist under `~/.jc-guided-review/<repo-name>/`.
+- Removed automatic review generation, fix phases, and source-comment trimming from this skill.
+  Added three fictional Review inputs for trying the interaction in separate sessions.
 
 ### 1.3.1 — 2026-09-02
 

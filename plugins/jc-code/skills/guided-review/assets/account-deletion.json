@@ -1,0 +1,26 @@
+{
+  "id": "review-fictional-deletion",
+  "state": "active",
+  "target": "FICTIONAL AI-GENERATED TEST INPUT. Examine an imagined account deletion change at accounts/delete.py:20-75 and billing/events.py:12-40. No referenced code exists. Scenario facts: the handler deletes the local account, commits, then calls the billing provider to cancel renewal. A failed provider call is logged but not retried or surfaced to the caller. There is no reconciliation job. Whether the provider independently cancels renewal is unspecified. Moving the network call into a database transaction would hold locks during provider delays and cannot roll back a successful remote cancellation. The handler accepts an account ID; authentication middleware checks a session, but the scenario does not specify authorization checks in the route or data layer. Use only these scenario facts and clearly identify missing information.",
+  "findings": [
+    {
+      "id": "F1",
+      "claim": "Deleting an account can leave its paid subscription renewing after the local account is gone.",
+      "location": "accounts/delete.py:42-65",
+      "comments": [
+        {"id": "C1", "author": "fictional-reviewer", "is_valid": true, "attention_level": "high", "remediation_risk": "high", "rationale": "A provider failure after commit leaves no retry in the supplied scenario. Durable cancellation with retries would change data storage and lifecycle behavior. Independent provider cancellation remains unknown."},
+        {"id": "C2", "author": "fictional-challenger", "is_valid": true, "attention_level": "high", "remediation_risk": "high", "rationale": "Simply putting the network call inside the transaction does not make remote cancellation reversible and introduces lock contention. Confirm the provider lifecycle before choosing a fix."}
+      ],
+      "adjudication": null
+    },
+    {
+      "id": "F2",
+      "claim": "An authenticated user can delete another user's account by changing the account ID.",
+      "location": "accounts/delete.py:20-35",
+      "comments": [
+        {"id": "C1", "author": "fictional-reviewer", "is_valid": true, "attention_level": "high", "rationale": "The handler accepts a client-supplied ID. This assessment assumes no ownership check elsewhere, which the scenario does not establish. Remediation cannot be estimated until the authorization boundary is known."}
+      ],
+      "adjudication": null
+    }
+  ]
+}
