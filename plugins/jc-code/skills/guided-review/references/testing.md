@@ -10,11 +10,12 @@ working file, preserving them for another run.
 
 With the plugin installed, invoke `/jc-code:guided-review` and ask to test using
 the bundled `assets/retry-client.json`, resolved relative to the skill directory.
-Without installing, paste this in a fresh session with access to the local repository:
+Without installing, paste this in a fresh session with access to a local clone,
+replacing `<repo-root>` with the absolute path of that clone:
 
 ```text
-Read /Users/jcheng/privprjs/jc-agent-skills/plugins/jc-code/skills/guided-review/SKILL.md and follow it.
-Let me test this skill using /Users/jcheng/privprjs/jc-agent-skills/plugins/jc-code/skills/guided-review/assets/retry-client.json.
+Read <repo-root>/plugins/jc-code/skills/guided-review/SKILL.md and follow it.
+Let me test this skill using <repo-root>/plugins/jc-code/skills/guided-review/assets/retry-client.json.
 Begin the guided review and use the default storage location.
 ```
 

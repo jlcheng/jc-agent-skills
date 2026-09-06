@@ -30,7 +30,7 @@ While developing locally:
 ```
 .claude-plugin/marketplace.json      # marketplace: jc-agent-skills
 plugins/jc-code/
-├── .claude-plugin/plugin.json       # plugin: jc-code, version 1.4.0
+├── .claude-plugin/plugin.json       # plugin: jc-code, version 1.4.1
 ├── skills/drawio/                   # skill: drawio (vetted upstream copy)
 ├── skills/mermaid/                  # skill: mermaid (first-party)
 ├── skills/guided-review/            # skill: guided-review (first-party)
@@ -64,6 +64,14 @@ inputs and prompts you can use in a fresh session.
 Versions are `jc-code` plugin versions, from `plugins/jc-code/.claude-plugin/plugin.json`. Newest
 first. One bullet per user-visible change: what changed, and why it matters to someone using the
 skill. Skip anything invisible from outside the repo.
+
+### 1.4.1 — 2026-09-06
+
+- The `guided-review` testing guide no longer tells you to paste one specific machine's absolute
+  paths. It uses a `<repo-root>` placeholder you fill in with your own clone.
+- The Review contract now cites the published post the vocabulary came from,
+  ["Throwing Away What You Built"](https://www.jcheng.org/post/throwing-away-what-you-built/),
+  instead of an unpublished journal file nobody else can open.
 
 ### 1.4.0 — 2026-09-06
 

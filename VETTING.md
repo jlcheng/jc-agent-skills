@@ -47,8 +47,9 @@ recorded here too, documenting their execution and network behavior.
 ### Verdict
 
 Safe. Personal-configuration installer with a small, auditable footprint. The
-thing to be aware of is that it is the one skill here that writes outside the
-project, into `~/.claude`, by design.
+thing to be aware of is that it writes outside the project, into `~/.claude`, by
+design. It is one of two skills here that write outside the project; the other is
+`guided-review`, which writes to `~/.jc-guided-review/`.
 
 ## jc-code:mermaid
 
@@ -108,9 +109,10 @@ the on-demand npm download + headless-Chrome launch on first validation.
 
 ### Verdict
 
-Prose-only review guidance with local JSON persistence. The material write is to
-the user's review storage directory. Human interaction was exercised through
-prototype sessions; file checks do not establish correctness of AI assessments.
+Safe. Prose-only review guidance with local JSON persistence. The material write
+is to the user's review storage directory, outside the project. Human interaction
+was exercised through prototype sessions; file checks do not establish correctness
+of AI assessments.
 
 ## jc-code:drawio
 

@@ -18,4 +18,6 @@ Every skill change ships as a plugin version bump. Do all of these, in order:
    what the skill executes and what it sends over the network.
 
 Individual skills may carry their own `version` in their `SKILL.md` frontmatter. That is separate
-from the plugin version and does not need to move in step with it.
+from the plugin version and does not need to move in step with it. First-party skills here
+deliberately carry no `version`; they track the plugin version alone. A vetted upstream copy keeps
+whatever `version` upstream set, as `drawio` does.

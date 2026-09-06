@@ -1,10 +1,12 @@
 # Review contract
 
-Read this entire file before guiding a Review. It adapts the vocabulary in John's
-`ai-code-reviews.md` journal entry dated 2026-09-06. The JSON representation and session rules below
+Read this entire file before guiding a Review. It adapts the vocabulary from John's post
+["Throwing Away What You Built"](https://www.jcheng.org/post/throwing-away-what-you-built/)
+(2026-09-06), which describes the review system this skill was cut down from and why the
+vocabulary was the part worth keeping. The JSON representation and session rules below
 define this skill's file format and behavior. Resolve the skill's relative reference to this file
 against the skill directory, not the session's working directory. This contract contains the
-necessary vocabulary; the original journal and earlier conversation are not required.
+necessary vocabulary; the post and earlier conversation are background, not requirements.
 
 ## Stored objects
 
