@@ -1,0 +1,30 @@
+{
+  "state": "completed",
+  "target": "Uncommitted changes, including untracked files, in <repo-root> relative to HEAD, reviewed 2026-09-07. Changes add Markdown outline navigation, external-link behavior, scrollable tables, and preview styling. Reviewed files: omni-renderer.html, src/omni-renderer/main.ts, src/omni-renderer/omni-renderer.css, src/omni-renderer/external-links.test.ts, src/omni-renderer/external-links.ts, src/omni-renderer/outline-view.ts, src/omni-renderer/outline.test.ts, src/omni-renderer/outline.ts, src/omni-renderer/tables.test.ts, src/omni-renderer/tables.ts. No application code was modified by this review.",
+  "validation": {
+    "tests": "npm test: 9 files, 91 tests passed",
+    "checks": "npm run check: TypeScript and ESLint passed; git diff --check passed",
+    "browser": "Chrome against an existing local development server at /omni-renderer/. Reproduced F1 with a temporary local server delaying an SVG image by 22 seconds."
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "claim": "A late-loading image can undo Back to top after an outline jump.",
+      "location": "src/omni-renderer/outline-view.ts:45-66, 278-285; src/omni-renderer/main.ts:210-228",
+      "comments": [
+        {
+          "id": "C1",
+          "author": "codex-reviewer",
+          "is_valid": true,
+          "attention_level": "medium",
+          "remediation_risk": "low",
+          "rationale": "Confirmed in Chrome using a Markdown document with Title, First, and Second headings, 35 paragraphs between First and Second, 35 paragraphs after Second, and an SVG image above the headings delayed by 22 seconds. Opened Outline, clicked Second, then clicked Back to top before the image loaded. DOM measurements showed scrollTop=0 with image.complete=false. Once the image loaded, without further user navigation, scrollTop became 1862.727 and Second was aligned one-third down the preview. OutlineView.jump retains pendingTarget at outline-view.ts:261; cancellation listeners at lines 45-65 are attached to the preview scroller. The Back to top toolbar is outside that scroller, and its handler in main.ts:210-228 never cancels pendingTarget. The captured image load calls settle at outline-view.ts:66, which re-aligns the stale target at lines 278-285. This unexpectedly reverses an explicit reader navigation action. Medium attention because it is a reproduced navigation failure, conditional on a late image or diagram completing. Low remediation risk assumes adding an explicit way to cancel the pending outline alignment and calling it for Back to top/Contents navigation, while retaining alignment correction when the reader has not navigated elsewhere. A regression test should cover outline jump, Back to top, then image completion."
+        }
+      ],
+      "adjudication": {
+        "is_valid": true,
+        "attention_level": "medium"
+      }
+    }
+  ]
+}

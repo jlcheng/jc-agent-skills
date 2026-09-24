@@ -1,8 +1,10 @@
 # Trying guided review
 
-The bundled inputs are fictional, AI-generated Reviews. Their Targets supply
-scenario facts; their code paths do not exist. Machine claims can be wrong, and
-the resumed example includes fictional prior human decisions.
+The first three bundled inputs are fictional, AI-generated Reviews. Their
+Targets supply scenario facts; their code paths do not exist. Machine claims can
+be wrong, and the resumed example includes fictional prior human decisions.
+`omni-renderer-completed.json` is an anonymized completed Review of public
+source code.
 
 Each session needs only the skill and its input files. No context from the
 development conversation is required. The skill copies test inputs to a new
@@ -33,6 +35,9 @@ Available inputs:
   risky remediation and missing context.
 - [resumed-review.json](../assets/resumed-review.json): fictional prior human
   judgments, machine disagreement with a human decision, and one Pending Finding.
+- [omni-renderer-completed.json](../assets/omni-renderer-completed.json): an
+  anonymized, completed review of public `src/omni-renderer` code, including a
+  human Adjudication and the recorded validation.
 
 Try selecting several Findings: each should open as a detailed card, one at a
 time. The full table should appear at the start and end, or on request. Between
