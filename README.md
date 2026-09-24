@@ -65,6 +65,11 @@ Versions are `jc-code` plugin versions, from `plugins/jc-code/.claude-plugin/plu
 first. One bullet per user-visible change: what changed, and why it matters to someone using the
 skill. Skip anything invisible from outside the repo.
 
+### 1.5.0 — 2026-09-24
+
+- `guided-review` now starts only when you explicitly invoke it or ask to start or continue a
+  guided review. The model no longer infers activation from review files or review discussion.
+
 ### 1.4.1 — 2026-09-06
 
 - The `guided-review` testing guide no longer tells you to paste one specific machine's absolute

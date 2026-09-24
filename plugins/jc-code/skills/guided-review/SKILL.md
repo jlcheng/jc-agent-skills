@@ -1,9 +1,18 @@
 ---
 name: guided-review
-description: Guide a human through a stored Review JSON file with a findings table at the start and end and detailed cards for selected Findings. Use when the user wants to walk through, triage, or adjudicate an existing Review JSON file.
+description: Guide a human through a stored Review JSON file with a findings table at the start and end and detailed cards for selected Findings. Invoke only when the user explicitly asks to start or continue a guided review, or explicitly invokes this skill. Never infer a request from the presence of a Review JSON file, a code review request, or discussion of findings.
 ---
 
 # Guided Review
+
+## Activation
+
+This skill is opt-in. Invoke it only when the user explicitly asks to start or
+continue a guided review, or explicitly invokes the skill by name or command.
+Do not invoke it based on context, an available Review file, a request for code
+review, or a general discussion of review findings. If the user has not made an
+explicit request, do not start this workflow; respond to their actual request
+without using this skill.
 
 Read [the Review contract](references/contract.md) in full, then load the supplied Review.
 Use an overview for choosing where to spend attention and a
