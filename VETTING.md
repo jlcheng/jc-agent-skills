@@ -14,7 +14,8 @@ recorded here too, documenting their execution and network behavior.
   invocation in `agents/openai.yaml`.
 - **Execution and network:** No tools, scripts, writes, or network calls. The instructions
   explicitly prohibit tool use and other actions.
-- **Evaluation marker:** An inert comment identifies release A for installed-content comparison.
+- **Evaluation marker:** An inert comment identifies release B for installed-content comparison.
+  Updated in 1.6.1 on 2026-09-25; instructions, invocation policies, and side effects are unchanged.
 
 ### Verdict
 

@@ -44,8 +44,8 @@ While developing locally in Claude Code:
 .claude-plugin/marketplace.json      # Claude marketplace: jc-agent-skills
 .agents/plugins/marketplace.json    # Codex marketplace: jc-agent-skills
 plugins/jc-code/
-├── .claude-plugin/plugin.json       # plugin: jc-code, version 1.6.0
-├── .codex-plugin/plugin.json        # same plugin, version 1.6.0
+├── .claude-plugin/plugin.json       # plugin: jc-code, version 1.6.1
+├── .codex-plugin/plugin.json        # same plugin, version 1.6.1
 ├── skills/drawio/                   # skill: drawio (vetted upstream copy)
 ├── skills/mermaid/                  # skill: mermaid (first-party)
 ├── skills/guided-review/            # skill: guided-review (first-party)
@@ -80,6 +80,11 @@ inputs and prompts you can use in a fresh session.
 Versions are `jc-code` plugin versions, shared by the Claude and Codex manifests. Newest
 first. One bullet per user-visible change: what changed, and why it matters to someone using the
 skill. Skip anything invisible from outside the repo.
+
+### 1.6.1 — 2026-09-25
+
+- Changed only the inert `ping` evaluation marker to distinguish installed release B from A
+  during manager update tests. Its explicit-only policy and exact `pong` response are unchanged.
 
 ### 1.6.0 — 2026-09-25
 
