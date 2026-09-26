@@ -5,6 +5,21 @@ what was audited, when, and from where, so future upstream updates can be diffed
 against a known-good baseline. First-party skills authored in this repo are
 recorded here too, documenting their execution and network behavior.
 
+## jc-code:ping
+
+- **Origin:** First-party, authored in this repo.
+- **Added:** 2026-09-25, plugin 1.6.0.
+- **What it does:** Replies with exactly `pong` when explicitly invoked.
+- **Invocation:** Claude disables model invocation in `SKILL.md`; Codex disables implicit
+  invocation in `agents/openai.yaml`.
+- **Execution and network:** No tools, scripts, writes, or network calls. The instructions
+  explicitly prohibit tool use and other actions.
+- **Evaluation marker:** An inert comment identifies release A for installed-content comparison.
+
+### Verdict
+
+Safe. A fixed response with no side effects.
+
 ## jc-code:claude-setup
 
 - **Origin:** First-party — authored in this repo, not copied from upstream.

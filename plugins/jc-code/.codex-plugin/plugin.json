@@ -1,0 +1,24 @@
+{
+  "name": "jc-code",
+  "version": "1.6.0",
+  "description": "Code-related skills vetted by John. Skills: drawio (generate .drawio diagrams and export PNG/SVG/PDF via the draw.io desktop CLI); mermaid (author and repair Mermaid diagrams, validated by rendering with mermaid-cli); guided-review (guide human judgments of an existing Review JSON with an overview table and detailed Finding cards); claude-setup (install John's preferred Claude Code machine setup, currently the status line script and its settings.json wiring); ping (reply with pong only when explicitly invoked).",
+  "author": {
+    "name": "John Cheng",
+    "email": "johnlicheng@gmail.com"
+  },
+  "skills": "./skills/",
+  "repository": "https://github.com/jlcheng/jc-agent-skills",
+  "interface": {
+    "displayName": "JC Code",
+    "shortDescription": "John\u2019s vetted coding skills",
+    "longDescription": "Code-related skills vetted by John. Skills: drawio (generate .drawio diagrams and export PNG/SVG/PDF via the draw.io desktop CLI); mermaid (author and repair Mermaid diagrams, validated by rendering with mermaid-cli); guided-review (guide human judgments of an existing Review JSON with an overview table and detailed Finding cards); claude-setup (install John's preferred Claude Code machine setup, currently the status line script and its settings.json wiring); ping (reply with pong only when explicitly invoked).",
+    "developerName": "John Cheng",
+    "category": "Productivity",
+    "defaultPrompt": [
+      "Use $jc-code:ping."
+    ],
+    "capabilities": [
+      "Interactive"
+    ]
+  }
+}

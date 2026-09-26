@@ -1,16 +1,28 @@
 # jc-agent-skills
 
-A Claude Code plugin marketplace hosting agent skills I have vetted and am comfortable publishing.
+A Claude Code and Codex plugin marketplace hosting agent skills I have vetted and am comfortable publishing.
 See [VETTING.md](VETTING.md) for the audit record of each skill.
 
 ## Install
 
+Claude Code:
+
 ```
-/plugin marketplace add jcheng/jc-agent-skills
+/plugin marketplace add jlcheng/jc-agent-skills
 /plugin install jc-code@jc-agent-skills
 ```
 
-While developing locally:
+Codex:
+
+```sh
+codex plugin marketplace add jlcheng/jc-agent-skills
+codex plugin add jc-code@jc-agent-skills
+```
+
+Invoke skills with `/jc-code:<skill>` in Claude Code or `$jc-code:<skill>` in Codex.
+The `ping` skill is explicit-only in both clients and replies with exactly `pong`.
+
+While developing locally in Claude Code:
 
 ```
 /plugin marketplace add ~/privprjs/jc-agent-skills
@@ -24,21 +36,25 @@ While developing locally:
 | `jc-code` | `mermaid` | `/jc-code:mermaid` | First-party (authored in this repo) |
 | `jc-code` | `guided-review` | `/jc-code:guided-review` | First-party (authored in this repo) |
 | `jc-code` | `claude-setup` | `/jc-code:claude-setup` | First-party (authored in this repo) |
+| `jc-code` | `ping` | `/jc-code:ping` | First-party (authored in this repo) |
 
 ## Layout
 
 ```
-.claude-plugin/marketplace.json      # marketplace: jc-agent-skills
+.claude-plugin/marketplace.json      # Claude marketplace: jc-agent-skills
+.agents/plugins/marketplace.json    # Codex marketplace: jc-agent-skills
 plugins/jc-code/
-├── .claude-plugin/plugin.json       # plugin: jc-code, version 1.4.1
+├── .claude-plugin/plugin.json       # plugin: jc-code, version 1.6.0
+├── .codex-plugin/plugin.json        # same plugin, version 1.6.0
 ├── skills/drawio/                   # skill: drawio (vetted upstream copy)
 ├── skills/mermaid/                  # skill: mermaid (first-party)
 ├── skills/guided-review/            # skill: guided-review (first-party)
-└── skills/claude-setup/             # skill: claude-setup (first-party)
+├── skills/claude-setup/             # skill: claude-setup (first-party)
+└── skills/ping/                     # skill: ping (first-party, explicit-only)
 ```
 
 Some skills here are vetted copies of other people's work (see [VETTING.md](VETTING.md)); `mermaid`,
-`guided-review`, and `claude-setup` were authored in this repo.
+`guided-review`, `claude-setup`, and `ping` were authored in this repo.
 
 ## Guided review
 
@@ -57,13 +73,18 @@ inputs and prompts you can use in a fresh session.
 1. Pull upstream and diff against the audited commit recorded in VETTING.md.
 2. Re-review the diff (or re-run a full audit for large changes).
 3. Copy the subtree in, update VETTING.md with the new commit, bump the plugin `version` in
-   `plugin.json`.
+   both plugin manifests.
 
 ## Change Log
 
-Versions are `jc-code` plugin versions, from `plugins/jc-code/.claude-plugin/plugin.json`. Newest
+Versions are `jc-code` plugin versions, shared by the Claude and Codex manifests. Newest
 first. One bullet per user-visible change: what changed, and why it matters to someone using the
 skill. Skip anything invisible from outside the repo.
+
+### 1.6.0 — 2026-09-25
+
+- Added Codex packaging using the same skills tree and `jc-code` namespace as Claude Code.
+- Added explicit-only `ping`, which replies with `pong`, for checking installed skill activation.
 
 ### 1.5.0 — 2026-09-24
 
