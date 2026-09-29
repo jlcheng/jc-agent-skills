@@ -5,22 +5,6 @@ when, and from where, so future upstream updates can be diffed against a known-g
 First-party skills authored in this repo are recorded here too, documenting their execution and
 network behavior.
 
-## jc-code:ping
-
-- **Origin:** First-party, authored in this repo.
-- **Added:** 2026-09-25, plugin 1.6.0.
-- **What it does:** Replies with exactly `pong` when explicitly invoked.
-- **Invocation:** Claude disables model invocation in `SKILL.md`; Codex disables implicit
-  invocation in `agents/openai.yaml`.
-- **Execution and network:** No tools, scripts, writes, or network calls. The instructions
-  explicitly prohibit tool use and other actions.
-- **Evaluation marker:** An inert comment identifies release B for installed-content comparison.
-  Updated in 1.6.1 on 2026-09-25; instructions, invocation policies, and side effects are unchanged.
-
-### Verdict
-
-Safe. A fixed response with no side effects.
-
 ## jc-code:grilling
 
 - **Origin:** First-party — based on Matt Pocock's skills.

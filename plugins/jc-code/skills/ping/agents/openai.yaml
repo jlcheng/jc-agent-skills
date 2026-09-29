@@ -1,5 +1,0 @@
-interface:
-  display_name: "Ping"
-  short_description: "Reply with pong when explicitly invoked"
-policy:
-  allow_implicit_invocation: false
