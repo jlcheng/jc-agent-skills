@@ -1,7 +1,7 @@
 # jc-agent-skills
 
-A Claude Code and Codex plugin marketplace hosting agent skills I have vetted and am comfortable publishing.
-See [VETTING.md](VETTING.md) for the audit record of each skill.
+A Claude Code and Codex plugin marketplace hosting agent skills I have vetted and am comfortable
+publishing. See [VETTING.md](VETTING.md) for the audit record of each skill.
 
 ## Install
 
@@ -37,54 +37,52 @@ While developing locally in Claude Code:
 | `jc-code` | `guided-review` | `/jc-code:guided-review` | First-party (authored in this repo) |
 | `jc-code` | `claude-setup` | `/jc-code:claude-setup` | First-party (authored in this repo) |
 | `jc-code` | `ping` | `/jc-code:ping` | First-party (authored in this repo) |
+| `jc-code` | `grilling` | `/jc-code:grilling` | First-party (authored in this repo) |
+| `jc-code` | `grill-with-docs` | `/jc-code:grill-with-docs` | First-party (authored in this repo) |
+| `jc-code` | `domain-modeling` | `/jc-code:domain-modeling` | First-party (authored in this repo) |
 
 ## Layout
 
 ```
 .claude-plugin/marketplace.json      # Claude marketplace: jc-agent-skills
-.agents/plugins/marketplace.json    # Codex marketplace: jc-agent-skills
+.agents/plugins/marketplace.json     # Codex marketplace: jc-agent-skills
 plugins/jc-code/
-├── .claude-plugin/plugin.json       # plugin: jc-code, version 1.6.1
-├── .codex-plugin/plugin.json        # same plugin, version 1.6.1
-├── skills/drawio/                   # skill: drawio (vetted upstream copy)
-├── skills/mermaid/                  # skill: mermaid (first-party)
-├── skills/guided-review/            # skill: guided-review (first-party)
-├── skills/claude-setup/             # skill: claude-setup (first-party)
-└── skills/ping/                     # skill: ping (first-party, explicit-only)
+├── .claude-plugin/plugin.json       # plugin: jc-code, version 1.7.0
+├── .codex-plugin/plugin.json        # same plugin, version 1.7.0
+└── skills/${skill_name}/            # One directory per skill
 ```
 
-Some skills here are vetted copies of other people's work (see [VETTING.md](VETTING.md)); `mermaid`,
-`guided-review`, `claude-setup`, and `ping` were authored in this repo.
-
-## Guided review
-
-`/jc-code:guided-review` walks through an existing Review JSON file. It shows a findings table
-at the start and end, and detailed cards as you choose Findings to judge. Machine disagreement
-and replies are explicit; your judgment has the final say. This version does not generate the
-initial Review from a diff, apply code fixes, or import the old `findings.md` state format.
-
-Each Review is stored in `~/.jc-guided-review/<repo-name>/<date>-<description>-<unique-suffix>.json`.
-Decisions and completion update that same file. Explicit output paths override the default.
-See the [testing guide](plugins/jc-code/skills/guided-review/references/testing.md) for fictional
-inputs and prompts you can use in a fresh session.
+Some skills here are vetted copies of other people's work (see [VETTING.md](VETTING.md)). Other
+skills: `mermaid`, `guided-review`, `claude-setup`, `grilling`, `grill-with-docs`, and
+`domain-modeling`, and `ping` were authored in this repo.
 
 ## Updating a vetted skill
 
 1. Pull upstream and diff against the audited commit recorded in VETTING.md.
 2. Re-review the diff (or re-run a full audit for large changes).
-3. Copy the subtree in, update VETTING.md with the new commit, bump the plugin `version` in
-   both plugin manifests.
+3. Copy the subtree in, update VETTING.md with the new commit, bump the plugin `version` in both
+   plugin manifests.
 
 ## Change Log
 
-Versions are `jc-code` plugin versions, shared by the Claude and Codex manifests. Newest
-first. One bullet per user-visible change: what changed, and why it matters to someone using the
-skill. Skip anything invisible from outside the repo.
+Versions are `jc-code` plugin versions, shared by the Claude and Codex manifests. Newest first. One
+bullet per user-visible change: what changed, and why it matters to someone using the skill. Skip
+anything invisible from outside the repo.
+
+### 1.7.0 — 2026-09-28
+
+- Added `grilling`: stress-tests plans and ideas through rounds of questions.
+
+- Added `grill-with-docs`: combines grilling with domain modeling to capture glossary terms and
+  architectural decisions during the discussion.
+
+- Added `domain-modeling`: helps maintain a project glossary and record architectural decisions,
+  with format guides in the skill's `references/` directory.
 
 ### 1.6.1 — 2026-09-25
 
-- Changed only the inert `ping` evaluation marker to distinguish installed release B from A
-  during manager update tests. Its explicit-only policy and exact `pong` response are unchanged.
+- Changed only the inert `ping` evaluation marker to distinguish installed release B from A during
+  manager update tests. Its explicit-only policy and exact `pong` response are unchanged.
 
 ### 1.6.0 — 2026-09-25
 
@@ -93,8 +91,8 @@ skill. Skip anything invisible from outside the repo.
 
 ### 1.5.0 — 2026-09-24
 
-- `guided-review` now starts only when you explicitly invoke it or ask to start or continue a
-  guided review. The model no longer infers activation from review files or review discussion.
+- `guided-review` now starts only when you explicitly invoke it or ask to start or continue a guided
+  review. The model no longer infers activation from review files or review discussion.
 
 ### 1.4.1 — 2026-09-06
 
@@ -106,17 +104,17 @@ skill. Skip anything invisible from outside the repo.
 
 ### 1.4.0 — 2026-09-06
 
-- Replaced the seven-phase `guided-review` workflow with a guided examination of an existing
-  Review JSON: opening and closing tables, detailed Finding cards, explicit machine disagreement,
-  and saved human judgments. Reviews persist under `~/.jc-guided-review/<repo-name>/`.
+- Replaced the seven-phase `guided-review` workflow with a guided examination of an existing Review
+  JSON: opening and closing tables, detailed Finding cards, explicit machine disagreement, and saved
+  human judgments. Reviews persist under `~/.jc-guided-review/<repo-name>/`.
 - Removed automatic review generation, fix phases, and source-comment trimming from this skill.
   Added three fictional Review inputs for trying the interaction in separate sessions.
 
 ### 1.3.1 — 2026-09-02
 
 - The `claude-setup` status line now shows raw token counts next to the context percentage, for
-  example `12% (118k/1M)`. The counts are the same numbers the percentage is computed from, so
-  they cannot disagree with it.
+  example `12% (118k/1M)`. The counts are the same numbers the percentage is computed from, so they
+  cannot disagree with it.
 
 ### 1.3.0 — 2026-09-02
 
