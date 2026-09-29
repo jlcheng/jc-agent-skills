@@ -61,6 +61,29 @@ skills: `mermaid`, `guided-review`, `claude-setup`, `grilling`, `grill-with-docs
 3. Copy the subtree in, update VETTING.md with the new commit, bump the plugin `version` in both
    plugin manifests.
 
+## Validate the repository
+
+Run the static checks before publishing:
+
+```sh
+uv run scripts/validate_repo.py
+```
+
+The script checks matching Claude/Codex manifests, marketplace paths, skill metadata, explicit-only
+invocation policies, and README/VETTING inventories. Unknown metadata fields are accepted so skills
+can carry settings for other agents.
+
+Errors include the relevant file path and produce a nonzero exit status. The validator does not
+modify files or execute skills. It checks this checkout by default, even when invoked from another
+directory; use `--root /path/to/checkout` to check a different copy. These checks establish
+consistency, not the quality or safety of a skill's instructions.
+
+Run the validator's tests with:
+
+```sh
+uv run --with 'PyYAML>=6,<7' python -m unittest discover -s tests
+```
+
 ## Change Log
 
 Versions are `jc-code` plugin versions, shared by the Claude and Codex manifests. Newest first. One
