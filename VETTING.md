@@ -47,6 +47,10 @@ Safe. Prose-only guidance that may write domain documentation within the active 
 
 ## jc-code:claude-setup
 
+- **Activation update:** 2026-09-28, plugin 1.7.3. Added Codex’s
+  `policy.allow_implicit_invocation: false` to match Claude’s explicit-only setting.
+  This metadata change adds no execution or network behavior.
+
 - **Origin:** First-party — authored in this repo, not copied from upstream.
 - **Added:** 2026-09-02.
 - **What it does:** Installs the owner's preferred Claude Code machine setup. Ships two files:

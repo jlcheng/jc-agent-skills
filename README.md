@@ -45,8 +45,8 @@ While developing locally in Claude Code:
 .claude-plugin/marketplace.json      # Claude marketplace: jc-agent-skills
 .agents/plugins/marketplace.json     # Codex marketplace: jc-agent-skills
 plugins/jc-code/
-├── .claude-plugin/plugin.json       # plugin: jc-code, version 1.7.2
-├── .codex-plugin/plugin.json        # same plugin, version 1.7.2
+├── .claude-plugin/plugin.json       # plugin: jc-code, version 1.7.3
+├── .codex-plugin/plugin.json        # same plugin, version 1.7.3
 └── skills/${skill_name}/            # One directory per skill
 ```
 
@@ -66,6 +66,10 @@ skills: `mermaid`, `guided-review`, `claude-setup`, `grilling`, `grill-with-docs
 Versions are `jc-code` plugin versions, shared by the Claude and Codex manifests. Newest first. One
 bullet per user-visible change: what changed, and why it matters to someone using the skill. Skip
 anything invisible from outside the repo.
+
+### 1.7.3 — 2026-09-28
+
+- Added Codex’s explicit-only activation policy for `claude-setup`, matching its Claude setting.
 
 ### 1.7.2 — 2026-09-28
 
