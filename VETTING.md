@@ -121,6 +121,10 @@ headless-Chrome launch on first validation.
 
 ## jc-code:guided-review
 
+- **Activation update:** 2026-09-28, plugin 1.7.2. Explicit-only activation is configured with
+  Claude’s `disable-model-invocation: true` and Codex’s `policy.allow_implicit_invocation: false`.
+  This metadata change adds no execution or network behavior.
+
 - **Origin:** First-party — authored in this repo, not copied from upstream.
 - **Added:** 2026-08-29.
 - **Updated:** 2026-09-06, replacing the seven-phase workflow with the overview version refined
