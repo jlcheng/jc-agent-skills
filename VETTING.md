@@ -5,6 +5,21 @@ when, and from where, so future upstream updates can be diffed against a known-g
 First-party skills authored in this repo are recorded here too, documenting their execution and
 network behavior.
 
+## jc-code:interactive-design
+
+- **Origin:** First-party — implements `JCHENG-SOFTWARE-WORKFLOW.md` v1.0 from this repo.
+- **Added:** 2026-10-10, plugin 1.8.0.
+- **What it does:** Guides a fuzzy build request through dispatch, interview, domain vocabulary,
+  consequences, and a written result. Supporting guides `kinds-of-interviews.md` and
+  `written-result.md` sit beside `SKILL.md`. It may start without explicit invocation.
+- **Execution and network:** No bundled scripts or network calls. It may read project files during
+  the interview and, after the user approves a location, writes one Markdown design document in the
+  user's repository.
+
+### Verdict
+
+Safe. Prose-only guidance that writes a single user-approved document within the active repository.
+
 ## jc-code:grilling
 
 - **Origin:** First-party — based on Matt Pocock's skills.
