@@ -1,7 +1,7 @@
 {
   "name": "jc-code",
-  "version": "1.8.0",
-  "description": "Code-related skills vetted by John. Skills: drawio (generate .drawio diagrams and export PNG/SVG/PDF via the draw.io desktop CLI); mermaid (author and repair Mermaid diagrams, validated by rendering with mermaid-cli); guided-review (guide human judgments of an existing Review JSON with an overview table and detailed Finding cards); claude-setup (install John's preferred Claude Code machine setup, currently the status line script and its settings.json wiring); grilling (stress-test plans and ideas through focused questions); grill-with-docs (run a grilling session and create domain docs); domain-modeling (build and sharpen a project's domain model and record architectural decisions); interactive-design (walk a fuzzy small-to-medium build request through interview, vocabulary, and consequences to a short written design saved in the repo).",
+  "version": "1.8.1",
+  "description": "Code-related skills vetted by John. Skills: drawio (generate .drawio diagrams and export PNG/SVG/PDF via the draw.io desktop CLI); mermaid (author and repair Mermaid diagrams, validated by rendering with mermaid-cli); guided-review (guide human judgments of an existing Review JSON with an overview table and detailed Finding cards); claude-setup (install John's preferred Claude Code machine setup, currently the status line script and its settings.json wiring); interactive-design (walk a fuzzy small-to-medium build request through interview, vocabulary, and consequences to a short written design saved in the repo).",
   "author": {
     "name": "John Cheng",
     "email": "johnlicheng@gmail.com"
@@ -11,7 +11,7 @@
   "interface": {
     "displayName": "JC Code",
     "shortDescription": "John\u2019s vetted coding skills",
-    "longDescription": "Code-related skills vetted by John. Skills: drawio (generate .drawio diagrams and export PNG/SVG/PDF via the draw.io desktop CLI); mermaid (author and repair Mermaid diagrams, validated by rendering with mermaid-cli); guided-review (guide human judgments of an existing Review JSON with an overview table and detailed Finding cards); claude-setup (install John's preferred Claude Code machine setup, currently the status line script and its settings.json wiring); grilling (stress-test plans and ideas through focused questions); grill-with-docs (run a grilling session and create domain docs); domain-modeling (build and sharpen a project's domain model and record architectural decisions); interactive-design (walk a fuzzy small-to-medium build request through interview, vocabulary, and consequences to a short written design saved in the repo).",
+    "longDescription": "Code-related skills vetted by John. Skills: drawio (generate .drawio diagrams and export PNG/SVG/PDF via the draw.io desktop CLI); mermaid (author and repair Mermaid diagrams, validated by rendering with mermaid-cli); guided-review (guide human judgments of an existing Review JSON with an overview table and detailed Finding cards); claude-setup (install John's preferred Claude Code machine setup, currently the status line script and its settings.json wiring); interactive-design (walk a fuzzy small-to-medium build request through interview, vocabulary, and consequences to a short written design saved in the repo).",
     "developerName": "John Cheng",
     "category": "Productivity",
     "capabilities": [

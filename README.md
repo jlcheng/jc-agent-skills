@@ -35,9 +35,6 @@ While developing locally in Claude Code:
 | `jc-code` | `mermaid` | `/jc-code:mermaid` | First-party (authored in this repo) |
 | `jc-code` | `guided-review` | `/jc-code:guided-review` | First-party (authored in this repo) |
 | `jc-code` | `claude-setup` | `/jc-code:claude-setup` | First-party (authored in this repo) |
-| `jc-code` | `grilling` | `/jc-code:grilling` | First-party (authored in this repo) |
-| `jc-code` | `grill-with-docs` | `/jc-code:grill-with-docs` | First-party (authored in this repo) |
-| `jc-code` | `domain-modeling` | `/jc-code:domain-modeling` | First-party (authored in this repo) |
 | `jc-code` | `interactive-design` | `/jc-code:interactive-design` | First-party (authored in this repo) |
 
 ## Layout
@@ -46,14 +43,14 @@ While developing locally in Claude Code:
 .claude-plugin/marketplace.json      # Claude marketplace: jc-agent-skills
 .agents/plugins/marketplace.json     # Codex marketplace: jc-agent-skills
 plugins/jc-code/
-├── .claude-plugin/plugin.json       # plugin: jc-code, version 1.8.0
-├── .codex-plugin/plugin.json        # same plugin, version 1.8.0
+├── .claude-plugin/plugin.json       # plugin: jc-code, version 1.8.1
+├── .codex-plugin/plugin.json        # same plugin, version 1.8.1
 └── skills/${skill_name}/            # One directory per skill
 ```
 
 Some skills here are vetted copies of other people's work (see [VETTING.md](VETTING.md)). Other
-skills: `mermaid`, `guided-review`, `claude-setup`, `grilling`, `grill-with-docs`,
-`domain-modeling`, and `interactive-design` were authored in this repo.
+skills: `mermaid`, `guided-review`, `claude-setup`, and `interactive-design` were authored in this
+repo.
 
 ## Updating a vetted skill
 
@@ -90,6 +87,11 @@ uv run --with 'PyYAML>=6,<7' python -m unittest discover -s tests
 Versions are `jc-code` plugin versions, shared by the Claude and Codex manifests. Newest first. One
 bullet per user-visible change: what changed, and why it matters to someone using the skill. Skip
 anything invisible from outside the repo.
+
+### 1.8.1 — 2026-10-10
+
+- Removed `grilling`, `grill-with-docs`, and `domain-modeling`; `interactive-design` replaces them.
+  Nothing in the plugin maintains a `CONTEXT.md` glossary or ADRs anymore.
 
 ### 1.8.0 — 2026-10-10
 

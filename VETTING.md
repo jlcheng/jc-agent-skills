@@ -20,46 +20,6 @@ network behavior.
 
 Safe. Prose-only guidance that writes a single user-approved document within the active repository.
 
-## jc-code:grilling
-
-- **Origin:** First-party — based on Matt Pocock's skills.
-- **Added:** 2026-09-28, plugin 1.7.0.
-- **What it does:** Runs a focused interview to stress-test a plan, decision, or idea.
-- **Execution and network:** Prose-only; no scripts, writes, or network calls.
-
-### Verdict
-
-Safe. Conversational guidance with no side effects.
-
-## jc-code:grill-with-docs
-
-- **Origin:** First-party — based on Matt Pocock's skills.
-- **Added:** 2026-09-28, plugin 1.7.0.
-- **What it does:** Runs the grilling skill alongside domain-modeling guidance to produce a
-  plan/design and its domain documentation. It is explicit-only in Codex.
-- **Execution and network:** No bundled scripts or network calls. The composed workflow may read
-  project files and write `CONTEXT.md` and ADR files in the user's repository.
-
-### Verdict
-
-Safe. Prose-only guidance whose composed workflow may write domain documentation within the active
-repository.
-
-## jc-code:domain-modeling
-
-- **Origin:** First-party — based on Matt Pocock's skills.
-- **Added:** 2026-09-28, plugin 1.7.0.
-- **What it does:** Guides discussion and maintenance of project domain terminology, updates a
-  repository `CONTEXT.md`, and records selected architectural decisions as ADRs. Format guides live
-  in `references/`.
-- **Execution and network:** No bundled scripts, package installation, or network calls. It asks the
-  agent to inspect project code when comparing the documented model with implementation, and to
-  write `CONTEXT.md` and ADR files in the user's repository as requested by the modeling work.
-
-### Verdict
-
-Safe. Prose-only guidance that may write domain documentation within the active repository.
-
 ## jc-code:claude-setup
 
 - **Activation update:** 2026-09-28, plugin 1.7.3. Added Codex’s
