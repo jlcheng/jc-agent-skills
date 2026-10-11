@@ -5,7 +5,7 @@ description: Walk the user from a fuzzy idea to a short written design they can 
 
 # Interactive Design
 
-This skill implements JCheng's Software Building Workflow v1.0 (`JCHENG-SOFTWARE-WORKFLOW.md`). If
+This skill implements JCheng's Software Building Workflow v1.1 (`JCHENG-SOFTWARE-WORKFLOW.md`). If
 that file is in reach and disagrees with this skill, the workflow file wins.
 
 The skill is a model of the user's workflow. It guides them through the workflow so they build things
@@ -24,33 +24,15 @@ lock in today's guess, so use your judgment.
 - **Fuzzy -> Interactive Design.** Small to medium. This skill.
 - **Unknown -> Complex project.** Large and uncertain. Handled separately. Not this skill.
 
-## The workflow graph
+## Progress bar
 
-```
-                         request
-                            │
-        ┌───────────────────┼───────────────────┐
-      Clear               Fuzzy              Unknown
-        │                   │                   │
-      Build            1. Invoke         Complex project
-                            │              (separate)
-                       2. Dispatch ── not this workflow ──► Build or Complex project
-                            │
-                       3. Interview ◄──┐  kinds lead into
-                            │  └───────┘  each other
-                       4. Confirm domain vocabulary
-                            │
-                       5. Surface consequences   (AI may skip; user can always skip)
-                            │
-                       6. Written result ◄──┐  revise until
-                            │  └────────────┘  satisfied
-                       7. Save
-                            │
-                          Build   (afterward, usually by an AI)
-```
+Show the user where they are with one line over steps 2 to 7. Mark finished steps with a check and
+the current step in bold:
 
-Show it at Dispatch with a "you are here" mark on the current node. Showing it lets the user see
-where the job sits and object if it is in the wrong place. Show it again whenever that would help.
+Size up ✓ › **Interview** › Names › Consequences › Draft › Save
+
+Show it at Dispatch and again each time the step changes, so the user always knows where they are
+and what is left. One line is cheap enough to repeat. Mark a skipped step as skipped.
 
 ## Steps
 
@@ -61,8 +43,9 @@ request looks fuzzy. Starting on its own is fine because Dispatch comes next and
 
 ### 2. Dispatch
 
-**Produces:** a sizing of the job (clear, fuzzy and small to medium, or unknown and large), the
-workflow graph with "you are here," and the question *Is this the workflow you want?*
+**Produces:** a sizing of the job (clear, fuzzy and small to medium, or unknown and large) with the
+reason, the progress bar, and the question *Is this the workflow you want?* Stating the sizing lets
+the user object if the job is in the wrong tier.
 
 **Check-in:** wait for the answer. If the user says no, or the job is clear or large, step out of
 this workflow. Say whether it looks ready to build or like a complex project, and stop guiding.

@@ -90,6 +90,8 @@ anything invisible from outside the repo.
 
 ### 1.8.1 — 2026-10-10
 
+- `interactive-design` now shows where you are as a one-line progress bar, repeated each time the
+  step changes, instead of drawing the whole workflow graph once at the start.
 - Removed `grilling`, `grill-with-docs`, and `domain-modeling`; `interactive-design` replaces them.
   Nothing in the plugin maintains a `CONTEXT.md` glossary or ADRs anymore.
 

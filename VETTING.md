@@ -7,7 +7,10 @@ network behavior.
 
 ## jc-code:interactive-design
 
-- **Origin:** First-party — implements `JCHENG-SOFTWARE-WORKFLOW.md` v1.0 from this repo.
+- **Update:** 2026-10-10, plugin 1.8.1. Implements workflow v1.1, which replaces the workflow graph
+  with a one-line progress bar. Prose-only change; no new execution or network behavior.
+
+- **Origin:** First-party — implements `JCHENG-SOFTWARE-WORKFLOW.md` from this repo.
 - **Added:** 2026-10-10, plugin 1.8.0.
 - **What it does:** Guides a fuzzy build request through dispatch, interview, domain vocabulary,
   consequences, and a written result. Supporting guides `kinds-of-interviews.md` and
