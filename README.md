@@ -88,6 +88,11 @@ Versions are `jc-code` plugin versions, shared by the Claude and Codex manifests
 bullet per user-visible change: what changed, and why it matters to someone using the skill. Skip
 anything invisible from outside the repo.
 
+### 1.8.2 — 2026-10-11
+
+- `interactive-design`'s progress bar now starts with "Progress:" and marks every step (✓ finished,
+  ● current, ○ not started), so the current step stands out at a glance.
+
 ### 1.8.1 — 2026-10-10
 
 - `interactive-design` now shows where you are as a one-line progress bar, repeated each time the

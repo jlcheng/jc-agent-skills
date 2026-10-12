@@ -5,7 +5,7 @@ description: Walk the user from a fuzzy idea to a short written design they can 
 
 # Interactive Design
 
-This skill implements JCheng's Software Building Workflow v1.1 (`JCHENG-SOFTWARE-WORKFLOW.md`). If
+This skill implements JCheng's Software Building Workflow v1.2 (`JCHENG-SOFTWARE-WORKFLOW.md`). If
 that file is in reach and disagrees with this skill, the workflow file wins.
 
 The skill is a model of the user's workflow. It guides them through the workflow so they build things
@@ -26,13 +26,14 @@ lock in today's guess, so use your judgment.
 
 ## Progress bar
 
-Show the user where they are with one line over steps 2 to 7. Mark finished steps with a check and
-the current step in bold:
+Show the user where they are with one line over steps 2 to 7. Start it with a "Progress:" label and
+mark every step: ✓ finished, ● current (also bold), ○ not started:
 
-Size up ✓ › **Interview** › Names › Consequences › Draft › Save
+Progress: ✓ Size up › ● **Interview** › ○ Names › ○ Consequences › ○ Draft › ○ Save
 
 Show it at Dispatch and again each time the step changes, so the user always knows where they are
-and what is left. One line is cheap enough to repeat. Mark a skipped step as skipped.
+and what is left, stays consistent with their own workflow, and can object if the job is in the wrong
+place. One line is cheap enough to repeat. Mark a skipped step as skipped.
 
 ## Steps
 

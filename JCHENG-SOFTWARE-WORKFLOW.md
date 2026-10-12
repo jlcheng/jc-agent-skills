@@ -1,4 +1,4 @@
-# JCheng's Software Building Workflow — v1.1
+# JCheng's Software Building Workflow — v1.2
 
 ## Summary
 
@@ -40,28 +40,20 @@ here" marks the current node.
                           Build   (afterward, usually by an AI)
 ```
 
-The graph is for reading this document. In chat, the AI shows "you are here" as a one-line progress
-bar over steps 2 to 7, at Dispatch and again each time the step changes:
-
-Size up ✓ › **Interview** › Names › Consequences › Draft › Save
-
-This lets the user see where the job is and what is left, stay consistent with their own workflow,
-and object if the job is in the wrong place.
-
 ## Details
 
 ### Three tiers, by how clear the thing is
 
 - **Clear -> Build.** No interview.
-- **Fuzzy -> Interview First** *(small to medium; name TBD)*
+- **Fuzzy -> Interactive Design** *(small to medium)*
 - **Unknown -> Complex project.** Separate approach.
 
-### Interview First
+### Interactive Design
 
 1. **Invoke.** The user invokes the skill with a description of the thing. The skill is the model of
    the user's workflow and guides them through it so they build things consistently.
-2. **Dispatch.** The AI sizes the job, shows the progress bar, and asks: *Is this the workflow you
-   want?*
+2. **Dispatch.** The AI sizes the job, shows the user where they are, and asks: *Is this the
+   workflow you want?*
 3. **Interview.** One kind of interview or several, until the thing is clear (see *Kinds of
    interviews*). How the AI does it is up to the AI.
 4. **Confirm domain vocabulary.** The AI and the user agree on what things are called, in the user's
@@ -126,10 +118,6 @@ actually want.
 
 ## Decisions
 
-- **Show "you are here" as a one-line progress bar, not the graph.** It keeps the user consistent
-  with their own workflow and invites them to object without being asked. In v1.0 the AI drew the
-  whole graph at Dispatch. It took about 20 lines, came out different each time, and appeared only
-  once. One line is cheap enough to show at every step.
 - **Specify what happens and where the user checks in, not how.** Prescribing technique locks in
   today's guess and ties a fast-improving AI to choices that haven't been tested. Tighten once
   experience shows what works.
