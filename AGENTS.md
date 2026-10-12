@@ -18,8 +18,7 @@ Every skill change ships as a plugin version bump. Do all of these, in order:
    `.agents/plugins/marketplace.json` must resolve `jc-code` to `./plugins/jc-code`; preserve the
    Codex catalog policy and category fields.
 3. **Add a `## Change Log` entry in `README.md`.** Newest version first. See the format there.
-4. **Update the Plugins table and the Layout block in `README.md`**, including the version number
-   written into the Layout block.
+4. **Update the Plugins table in `README.md`** when a skill is added or removed.
 5. **Add a `VETTING.md` entry.** Required for every skill, first-party ones included — it records
    what the skill executes and what it sends over the network.
 

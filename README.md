@@ -43,8 +43,8 @@ While developing locally in Claude Code:
 .claude-plugin/marketplace.json      # Claude marketplace: jc-agent-skills
 .agents/plugins/marketplace.json     # Codex marketplace: jc-agent-skills
 plugins/jc-code/
-├── .claude-plugin/plugin.json       # plugin: jc-code, version 1.8.1
-├── .codex-plugin/plugin.json        # same plugin, version 1.8.1
+├── .claude-plugin/plugin.json       # plugin: jc-code, versioned
+├── .codex-plugin/plugin.json        # same plugin, versioned
 └── skills/${skill_name}/            # One directory per skill
 ```
 

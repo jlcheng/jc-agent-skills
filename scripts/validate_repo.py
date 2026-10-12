@@ -117,16 +117,6 @@ class Validator:
                     "README.md",
                     f"Plugins table inventory mismatch: missing {sorted(skills - table_skills)}, stale {sorted(table_skills - skills)}",
                 )
-            layout = sections.get("Layout", "")
-            for platform in ("claude", "codex"):
-                match = re.search(
-                    rf"\.{platform}-plugin/plugin\.json[^\n]*\bversion (\S+)", layout
-                )
-                if not match or match.group(1) != version:
-                    self.error(
-                        "README.md",
-                        f"Layout {platform} plugin version must be {version}",
-                    )
             releases = re.findall(
                 r"^### (\d+\.\d+\.\d+)\b", sections.get("Change Log", ""), re.MULTILINE
             )

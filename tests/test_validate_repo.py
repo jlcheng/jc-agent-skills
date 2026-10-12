@@ -64,7 +64,7 @@ class ValidatorTests(unittest.TestCase):
         )
         self.write(
             "README.md",
-            "## Plugins\n\n| `jc-code` | `example` |\n\n## Layout\n\n.claude-plugin/plugin.json # version 1.2.3\n.codex-plugin/plugin.json # version 1.2.3\n\n## Change Log\n\n### 1.2.3 — today\n",
+            "## Plugins\n\n| `jc-code` | `example` |\n\n## Layout\n\n.claude-plugin/plugin.json # plugin: jc-code, versioned\n.codex-plugin/plugin.json # same plugin, versioned\n\n## Change Log\n\n### 1.2.3 — today\n",
         )
         self.write("VETTING.md", "## jc-code:example\nReviewed.\n")
 
@@ -233,7 +233,6 @@ class ValidatorTests(unittest.TestCase):
         for expected in [
             "README.md",
             "Plugins",
-            "Layout",
             "Change Log",
             "VETTING.md",
             "example",
