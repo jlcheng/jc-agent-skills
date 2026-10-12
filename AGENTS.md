@@ -2,6 +2,8 @@
 
 A Claude Code and Codex plugin marketplace. One plugin so far, `jc-code`, holding vetted skills.
 
+The development policies and guide can be found at `CONTRIBUTING.md`.
+
 ## Adding or changing a skill
 
 Every skill change ships as a plugin version bump. Do all of these, in order:
