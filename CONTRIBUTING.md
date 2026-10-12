@@ -17,10 +17,15 @@ Read this to understand the process for improving the agent skills in this repo.
 
 ## Originals
 
-When I make changes to my software development process, I do not start by editing the files
-here. The files here are meant for outsiders to read and understand why my skills look the way they
-do. The real originals are maintained outside of this repository. The
-`~/.config/jc-agent-skills/development.md` file describes where to find them.
+The `JCHENG-SOFTWARE-WORKFLOW.md` file describes how I view the software development process. It is
+a copy of an original I manage elsewhere. The entire design behind this repo is also managed
+elsewhere. This repo represents the tools I use to aid in my development process. The actual mental
+model behind this repo lives elsewhere -- mostly in my head.
+
+When I make updates to my development process, I start by updating "the originals." Then I ask AI to
+update the skills and documentation in this repo to reflect my updated thinking. AI can obtain
+additional context about the "source code" of my mental model by reading
+`~/.config/jc-agent-skills/development.md`.
 
 ## What are `$JOURNAL` and `$TODO`?
 
