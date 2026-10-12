@@ -7,14 +7,14 @@ A Claude Code and Codex plugin marketplace. One plugin so far, `jc-code`, holdin
 Every skill change ships as a plugin version bump. Do all of these, in order:
 
 1. **Bump both `plugins/jc-code/.claude-plugin/plugin.json` and
-   `plugins/jc-code/.codex-plugin/plugin.json` to the same version.** New skill or new capability is a minor
-   bump; a fix to an existing skill is a patch bump. Update the `description` too — it lists every
-   skill, one clause each.
-2. **Update the plugin descriptions in both manifests and `.claude-plugin/marketplace.json`.**
-   The marketplace description is the short version of the same list. Keep the Codex
+   `plugins/jc-code/.codex-plugin/plugin.json` to the same version.** New skill or new capability is
+   a minor bump; a fix to an existing skill is a patch bump. Update the `description` too — it lists
+   every skill, one clause each.
+2. **Update the plugin descriptions in both manifests and `.claude-plugin/marketplace.json`.** The
+   marketplace description is the short version of the same list. Keep the Codex
    `interface.longDescription` in sync. Both `.claude-plugin/marketplace.json` and
-   `.agents/plugins/marketplace.json` must resolve `jc-code` to `./plugins/jc-code`; preserve
-   the Codex catalog policy and category fields.
+   `.agents/plugins/marketplace.json` must resolve `jc-code` to `./plugins/jc-code`; preserve the
+   Codex catalog policy and category fields.
 3. **Add a `## Change Log` entry in `README.md`.** Newest version first. See the format there.
 4. **Update the Plugins table and the Layout block in `README.md`**, including the version number
    written into the Layout block.
