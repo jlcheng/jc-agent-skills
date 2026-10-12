@@ -52,6 +52,12 @@ Some skills here are vetted copies of other people's work (see [VETTING.md](VETT
 skills: `mermaid`, `guided-review`, `claude-setup`, and `interactive-design` were authored in this
 repo.
 
+## Design and maintenance
+
+[The Interactive Design Process](<The Interactive Design Process.md>) explains the process behind
+`interactive-design`. See [CONTRIBUTING.md](CONTRIBUTING.md) for the originals, journals, to-do list,
+and how to update the documentation while preserving skill behavior.
+
 ## Updating a vetted skill
 
 1. Pull upstream and diff against the audited commit recorded in VETTING.md.
@@ -87,6 +93,11 @@ uv run --with 'PyYAML>=6,<7' python -m unittest discover -s tests
 Versions are `jc-code` plugin versions, shared by the Claude and Codex manifests. Newest first. One
 bullet per user-visible change: what changed, and why it matters to someone using the skill. Skip
 anything invisible from outside the repo.
+
+### 1.8.3 — 2026-10-12
+
+- `interactive-design` now refers to "The Interactive Design Process" essay, replacing the retired
+  workflow document. Its existing step instructions are retained.
 
 ### 1.8.2 — 2026-10-11
 

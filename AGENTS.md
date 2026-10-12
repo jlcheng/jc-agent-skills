@@ -4,6 +4,16 @@ A Claude Code and Codex plugin marketplace. One plugin so far, `jc-code`, holdin
 
 The development policies and guide can be found at `CONTRIBUTING.md`.
 
+## Design context
+
+Before changing `interactive-design`, read [The Interactive Design Process](<The Interactive Design Process.md>)
+and `CONTRIBUTING.md`. The essay explains the process and its reasons; the skill and its supporting
+files contain the current implementation details. A detail omitted or reworded in the essay is not,
+by itself, a request to change skill behavior. Compare the relevant instructions and report any
+differences that affect behavior; implement only the changes authorized by the task.
+
+`CONTRIBUTING.md` explains where the originals live and how to synchronize the repo copies.
+
 ## Adding or changing a skill
 
 Every skill change ships as a plugin version bump. Do all of these, in order:

@@ -5,8 +5,8 @@ description: Walk the user from a fuzzy idea to a short written design they can 
 
 # Interactive Design
 
-This skill implements JCheng's Software Building Workflow v1.2 (`JCHENG-SOFTWARE-WORKFLOW.md`). If
-that file is in reach and disagrees with this skill, the workflow file wins.
+This skill implements the process described in `The Interactive Design Process.md`. If
+that file is in reach and disagrees with this skill, the essay wins.
 
 The skill is a model of the user's workflow. It guides them through the workflow so they build things
 the same way each time. It ends with a short written result saved in the repo. Building comes
