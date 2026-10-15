@@ -36,6 +36,10 @@ While developing locally in Claude Code:
 | `jc-code` | `guided-review` | `/jc-code:guided-review` | First-party (authored in this repo) |
 | `jc-code` | `claude-setup` | `/jc-code:claude-setup` | First-party (authored in this repo) |
 | `jc-code` | `interactive-design` | `/jc-code:interactive-design` | First-party (authored in this repo) |
+| `jc-code` | `implement` | `/jc-code:implement` | First-party (authored in this repo) |
+| `jc-code` | `implement-build` | `/jc-code:implement-build` | First-party (authored in this repo) |
+| `jc-code` | `implement-review` | `/jc-code:implement-review` | First-party (authored in this repo) |
+| `jc-code` | `implement-understand` | `/jc-code:implement-understand` | First-party (authored in this repo) |
 
 ## Layout
 
@@ -49,14 +53,19 @@ plugins/jc-code/
 ```
 
 Some skills here are vetted copies of other people's work (see [VETTING.md](VETTING.md)). Other
-skills: `mermaid`, `guided-review`, `claude-setup`, and `interactive-design` were authored in this
-repo.
+skills were authored in this repo.
 
 ## Design and maintenance
 
 [The Interactive Design Process](<docs/The Interactive Design Process.md>) explains the process behind
 `interactive-design`. See [CONTRIBUTING.md](CONTRIBUTING.md) for the originals, journals, to-do list,
 and how to update the documentation while preserving skill behavior.
+
+[The Implement Skill](<docs/The Implement Skill.md>) explains the template and overridable skill
+pattern. Invoke `implement` with an approved tech spec to coordinate Build, Review, and Understand,
+or explicitly invoke an individual step. Customize a step by editing its skill instructions.
+All four skills are explicit-only. Run records live outside the target repo under
+`~/.jc-implement/<repo-name>/<run-id>/`; the initial version does not maintain preference memory.
 
 ## Updating a vetted skill
 
@@ -93,6 +102,13 @@ uv run --with 'PyYAML>=6,<7' python -m unittest discover -s tests
 Versions are `jc-code` plugin versions, shared by the Claude and Codex manifests. Newest first. One
 bullet per user-visible change: what changed, and why it matters to someone using the skill. Skip
 anything invisible from outside the repo.
+
+### 1.9.0 — 2026-10-15
+
+- Added explicit-only `implement`, `implement-build`, `implement-review`, and
+  `implement-understand`: build an approved tech spec, generate and challenge review findings in
+  fresh contexts, resolve findings, and explain decisions beyond the spec. Each step can be
+  customized directly, and records outside the target repo let another session resume the work.
 
 ### 1.8.3 — 2026-10-12
 

@@ -14,6 +14,10 @@ differences that affect behavior; implement only the changes authorized by the t
 
 `CONTRIBUTING.md` explains where the originals live and how to synchronize the repo copies.
 
+For the `implement` skills, [The Implement Skill](<docs/The Implement Skill.md>) explains the
+template pattern. The initial version deliberately defers the essay's preference memory; run
+records preserve workflow progress only.
+
 ## Adding or changing a skill
 
 Every skill change ships as a plugin version bump. Do all of these, in order:

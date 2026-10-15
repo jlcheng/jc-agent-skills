@@ -5,6 +5,70 @@ when, and from where, so future upstream updates can be diffed against a known-g
 First-party skills authored in this repo are recorded here too, documenting their execution and
 network behavior.
 
+## jc-code:implement
+
+- **Origin:** First-party — pattern described in `docs/The Implement Skill.md`.
+- **Added:** 2026-10-15, plugin 1.9.0.
+- **What it does:** Coordinates an approved tech spec through the separately editable
+  `implement-build`, `implement-review`, and `implement-understand` skills. Explicit-only.
+- **Execution and network:** No bundled scripts or direct network calls. Delegates the step skills
+  and their permitted operations. Creates and updates run records under
+  `~/.jc-implement/<repo-name>/<run-id>/`, outside the target repository. No automatic commits,
+  publication, deployment, or preference memory.
+
+### Verdict
+
+Appropriate for explicit implementation requests. Work and records remain within the approved
+scope; meaningful review choices and additional review rounds return to the user.
+
+## jc-code:implement-build
+
+- **Origin:** First-party — building step of `docs/The Implement Skill.md`.
+- **Added:** 2026-10-15, plugin 1.9.0.
+- **What it does:** Implements an approved tech spec and completes appropriate checks. Explicit-only;
+  also delegated by `implement`.
+- **Execution and network:** No bundled scripts or direct network calls. May edit target repo files
+  and run project tools and checks as allowed by the user's and repo's instructions. Project tools
+  may access the network, such as fetching dependencies. Updates the shared run record outside the
+  repo. Does not add permission to commit, publish, or deploy.
+
+### Verdict
+
+Ordinary implementation authority, bounded by the approved spec and existing instructions.
+
+## jc-code:implement-review
+
+- **Origin:** First-party — review step of `docs/The Implement Skill.md`.
+- **Added:** 2026-10-15, plugin 1.9.0.
+- **What it does:** Uses separate fresh agents to generate and challenge review findings, preserves
+  all findings, reports actionable issues, and resolves them with checks. Asks about meaningful
+  choices and whether to repeat the round. Explicit-only; also delegated by `implement`.
+- **Execution and network:** No bundled scripts or direct network calls. Sends the approved spec,
+  scoped implementation, and review materials to fresh agent contexts through the host's delegation
+  tools; excludes builder reasoning and the understanding report. Review passes inspect code; the
+  coordinating agent may edit the repo to apply clear fixes and run checks under current
+  instructions. Persists evidence, assessments, decisions, dispositions, and checks outside the
+  repo in the shared run directory. Project checks may access the network.
+
+### Verdict
+
+Review evidence survives dismissal and later sessions. Attention advice is separate from authority
+to fix; tradeoffs remain user decisions.
+
+## jc-code:implement-understand
+
+- **Origin:** First-party — understanding step of `docs/The Implement Skill.md`.
+- **Added:** 2026-10-15, plugin 1.9.0.
+- **What it does:** Explains implementation decisions and tradeoffs beyond the approved spec and
+  records material follow-up clarifications. Explicit-only; also delegated by `implement`.
+- **Execution and network:** No bundled scripts or direct network calls. Reads the spec and
+  implementation and writes `understand.md` plus workflow status in the shared run directory outside
+  the target repo. Does not maintain preference memory.
+
+### Verdict
+
+Read-only with respect to the implementation; writes workflow records by design.
+
 ## jc-code:interactive-design
 
 - **Update:** 2026-10-12, plugin 1.8.3. Replaced the process reference with
@@ -74,9 +138,9 @@ Safe. Prose-only guidance that writes a single user-approved document within the
 ### Verdict
 
 Safe. Personal-configuration installer with a small, auditable footprint. The thing to be aware of
-is that it writes outside the project, into `~/.claude`, by design. It is one of two skills here
-that write outside the project; the other is `guided-review`, which writes to
-`~/.jc-guided-review/`.
+is that it writes outside the project, into `~/.claude`, by design. Other skills that write outside
+the project include `guided-review` (`~/.jc-guided-review/`) and the `implement` workflow
+(`~/.jc-implement/`).
 
 ## jc-code:mermaid
 

@@ -22,6 +22,9 @@ of an original essay I manage elsewhere. The entire design behind this repo is a
 elsewhere. This repo represents the tools I use to aid in my development process. The actual mental
 model behind this repo lives elsewhere -- mostly in my head.
 
+`docs/The Implement Skill.md` describes the implementation workflow and its template pattern. The
+initial `implement` skills keep run records but defer the essay's preference memory.
+
 When I make updates to my development process, I start by updating "the originals." Then I ask AI to
 update the skills and documentation in this repo to reflect my updated thinking. AI can obtain
 additional context about the "source code" of my mental model by reading
