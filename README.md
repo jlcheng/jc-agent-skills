@@ -54,7 +54,7 @@ repo.
 
 ## Design and maintenance
 
-[The Interactive Design Process](<The Interactive Design Process.md>) explains the process behind
+[The Interactive Design Process](<docs/The Interactive Design Process.md>) explains the process behind
 `interactive-design`. See [CONTRIBUTING.md](CONTRIBUTING.md) for the originals, journals, to-do list,
 and how to update the documentation while preserving skill behavior.
 

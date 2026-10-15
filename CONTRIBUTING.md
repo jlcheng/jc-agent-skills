@@ -9,7 +9,7 @@ Read this to understand the process for improving the agent skills in this repo.
 
 ## Contribution Process
 
-1. I document how I build software in essays, including [The Interactive Design Process](<The Interactive Design Process.md>).
+1. I document how I build software in essays, including [The Interactive Design Process](<docs/The Interactive Design Process.md>).
 2. I use agent skills as the tool to model my process and enforce consistency.
 3. I record my experiences, ideas, and doubts about my workflow and tools in a `$JOURNAL` system.
 4. I periodically review the `$JOURNAL` and create concrete features in a `$TODO` system.
@@ -17,7 +17,7 @@ Read this to understand the process for improving the agent skills in this repo.
 
 ## Originals
 
-`The Interactive Design Process.md` explains the process behind `interactive-design`. It is a copy
+`docs/The Interactive Design Process.md` explains the process behind `interactive-design`. It is a copy
 of an original essay I manage elsewhere. The entire design behind this repo is also managed
 elsewhere. This repo represents the tools I use to aid in my development process. The actual mental
 model behind this repo lives elsewhere -- mostly in my head.

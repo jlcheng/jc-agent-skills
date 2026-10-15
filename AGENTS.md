@@ -6,7 +6,7 @@ The development policies and guide can be found at `CONTRIBUTING.md`.
 
 ## Design context
 
-Before changing `interactive-design`, read [The Interactive Design Process](<The Interactive Design Process.md>)
+Before changing `interactive-design`, read [The Interactive Design Process](<docs/The Interactive Design Process.md>)
 and `CONTRIBUTING.md`. The essay explains the process and its reasons; the skill and its supporting
 files contain the current implementation details. A detail omitted or reworded in the essay is not,
 by itself, a request to change skill behavior. Compare the relevant instructions and report any

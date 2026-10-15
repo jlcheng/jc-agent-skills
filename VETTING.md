@@ -8,7 +8,7 @@ network behavior.
 ## jc-code:interactive-design
 
 - **Update:** 2026-10-12, plugin 1.8.3. Replaced the process reference with
-  `The Interactive Design Process.md` and retired the old workflow document. Existing step
+  `docs/The Interactive Design Process.md` and retired the old workflow document. Existing step
   instructions and supporting guides are unchanged. The essay retains the reference's precedence
   when available; John accepted the omissions in the rewritten essay. No new execution or network
   behavior.
@@ -18,7 +18,7 @@ network behavior.
 - **Update:** 2026-10-10, plugin 1.8.1. Implements workflow v1.1, which replaces the workflow graph
   with a one-line progress bar. Prose-only change; no new execution or network behavior.
 
-- **Origin:** First-party — process described in `The Interactive Design Process.md` in this repo.
+- **Origin:** First-party — process described in `docs/The Interactive Design Process.md` in this repo.
 - **Added:** 2026-10-10, plugin 1.8.0.
 - **What it does:** Guides a fuzzy build request through dispatch, interview, domain vocabulary,
   consequences, and a written result. Supporting guides `kinds-of-interviews.md` and
