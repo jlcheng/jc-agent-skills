@@ -71,6 +71,10 @@ Read-only with respect to the implementation; writes workflow records by design.
 
 ## jc-code:interactive-design
 
+- **Update:** 2026-10-15, plugin 1.9.1. Dispatch still sizes every request. Workflow confirmation is
+  required only for very large tasks involving multiple systems or services built and tested before
+  integration; other requests proceed directly to Interview. The skill's Dispatch rules take
+  precedence over the essay. No new execution or network behavior.
 - **Update:** 2026-10-12, plugin 1.8.3. Replaced the process reference with
   `docs/The Interactive Design Process.md` and retired the old workflow document. Existing step
   instructions and supporting guides are unchanged. The essay retains the reference's precedence

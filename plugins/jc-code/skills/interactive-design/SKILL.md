@@ -1,12 +1,13 @@
 ---
 name: interactive-design
-description: Walk the user from a fuzzy idea to a short written design they can hand off for building. Use when the user invokes it, or when a small-to-medium build request is fuzzy, such as one that leans on a reference or a feeling, describes an outcome without a mechanism, or names a conventional solution without the problem behind it. Do not use when the request is already clear enough to build, or for planning a whole project.
+description: Walk the user from a fuzzy idea to a short written design they can hand off for building. Use when the user invokes it, or when a small-to-medium build request is fuzzy, such as one that leans on a reference or a feeling, describes an outcome without a mechanism, or names a conventional solution without the problem behind it. Do not start automatically when the request is already clear enough to build, or for planning a whole project.
 ---
 
 # Interactive Design
 
 This skill implements the process described in `docs/The Interactive Design Process.md`. If
-that file is in reach and disagrees with this skill, the essay wins.
+that file is in reach and disagrees with this skill, the essay wins, except that Dispatch follows
+the sizing and check-in rules below.
 
 The skill is a model of the user's workflow. It guides them through the workflow so they build things
 the same way each time. It ends with a short written result saved in the repo. Building comes
@@ -20,9 +21,9 @@ lock in today's guess, so use your judgment.
 
 ## Three tiers, by how clear the thing is
 
-- **Clear -> Build.** No interview. Not this skill.
+- **Clear -> Build.** Already clear enough to build; keep any interview brief.
 - **Fuzzy -> Interactive Design.** Small to medium. This skill.
-- **Unknown -> Complex project.** Large and uncertain. Handled separately. Not this skill.
+- **Unknown -> Complex project.** Very large; check whether this skill is appropriate before interviewing.
 
 ## Progress bar
 
@@ -40,16 +41,22 @@ place. One line is cheap enough to repeat. Mark a skipped step as skipped.
 ### 1. Invoke
 
 The user invokes the skill with a description of the thing, or the skill starts on its own because a
-request looks fuzzy. Starting on its own is fine because Dispatch comes next and acts as the brake.
+request looks fuzzy. In either case, begin with Dispatch.
 
 ### 2. Dispatch
 
 **Produces:** a sizing of the job (clear, fuzzy and small to medium, or unknown and large) with the
-reason, the progress bar, and the question *Is this the workflow you want?* Stating the sizing lets
-the user object if the job is in the wrong tier.
+reason and the progress bar. Stating the sizing lets the user object if the job is in the wrong tier.
 
-**Check-in:** wait for the answer. If the user says no, or the job is clear or large, step out of
-this workflow. Say whether it looks ready to build or like a complex project, and stop guiding.
+A very large task is one you would break into multiple systems or services, build and test each
+individually, and then integrate them.
+
+**Check-in:** only if the description suggests a very large task, ask whether this skill is
+appropriate and wait for the answer. If the user says yes, continue to Interview. If they say no,
+step out of this workflow and say it looks like a complex project.
+
+For all other tasks, go straight from sizing to Interview in the same response without asking for
+workflow confirmation.
 
 ### 3. Interview
 

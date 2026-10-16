@@ -103,6 +103,12 @@ Versions are `jc-code` plugin versions, shared by the Claude and Codex manifests
 bullet per user-visible change: what changed, and why it matters to someone using the skill. Skip
 anything invisible from outside the repo.
 
+### 1.9.1 — 2026-10-15
+
+- `interactive-design` still sizes every request, but asks whether the workflow is appropriate only
+  for very large tasks involving multiple systems or services built and tested before integration.
+  Other requests proceed straight into the interview.
+
 ### 1.9.0 — 2026-10-15
 
 - Added explicit-only `implement`, `implement-build`, `implement-review`, and

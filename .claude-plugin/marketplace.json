@@ -11,7 +11,7 @@
     {
       "name": "jc-code",
       "source": "./plugins/jc-code",
-      "description": "Code-related skills vetted by John (drawio + mermaid diagrams, guided code review, Claude Code machine setup, interactive design, implement workflow, implement-build, implement-review, implement-understand)"
+      "description": "Code-related skills vetted by John (drawio + mermaid diagrams, guided code review, Claude Code machine setup, interactive design with workflow confirmation only for very large tasks, implement workflow, implement-build, implement-review, implement-understand)"
     }
   ]
 }
